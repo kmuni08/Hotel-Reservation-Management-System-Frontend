@@ -1,0 +1,69 @@
+.hotel-item {
+    margin: 1rem;
+    width: calc(45% - 2rem);
+    min-width: 55.5rem;
+}
+
+.hotel-item a {
+    display: flex;
+    position:relative;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    padding: 1rem;
+    color: white;
+    background: #f5f0f0;
+}
+
+.hotel-item a:hover,
+.hotel-item a:active {
+    background: purple;
+}
+
+.hotel-item__content {
+    padding: 0;
+}
+.hotel-item__actions {
+    position: absolute;
+    text-align: center;
+    margin-right: 2rem;
+}
+
+.hotel-item__modal-actions {
+    text-align: right;
+}
+
+.hotel-item__actions button,
+.hotel-item__actions a {
+    margin: 1.5rem;
+}
+
+.hotel-item__image {
+    width: 4rem;
+    height: 4rem;
+    margin-right: 1rem;
+}
+
+.hotel-item__info h2 {
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem 10rem;
+    font-weight: normal;
+    color: black;
+}
+
+.hotel-item__info h3 {
+    font-weight: normal;
+    color: black;
+}
+
+.hotel-item:hover h2,
+.hotel-item:active h2,
+.hotel-item:hover h3,
+.hotel-item:active h3 {
+    color: pink;
+}
+
+.hotel-item__info h3 {
+    margin: 0 0 0.5rem 10rem;
+}
