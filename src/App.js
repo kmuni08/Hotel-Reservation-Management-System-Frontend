@@ -18,6 +18,9 @@ const App = () => {
                <Route path="/searchengine" exact>
                    <SearchEngine />
                </Route>
+               <Route path= "/hotels" exact>
+                   <NewHotel />
+               </Route>
                <Route path= "/hotels/new" exact>
                    <NewHotel />
                </Route>

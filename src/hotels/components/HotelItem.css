@@ -6,7 +6,7 @@
 
 .hotel-item a {
     display: flex;
-    position:relative;
+    position: relative;
     align-items: center;
     width: 100%;
     height: 100%;
@@ -24,19 +24,10 @@
 .hotel-item__content {
     padding: 0;
 }
+
 .hotel-item__actions {
-    position: absolute;
-    text-align: center;
-    margin-right: 2rem;
-}
-
-.hotel-item__modal-actions {
-    text-align: right;
-}
-
-.hotel-item__actions button,
-.hotel-item__actions a {
-    margin: 1.5rem;
+    position:absolute;
+    margin-right: auto;
 }
 
 .hotel-item__image {
