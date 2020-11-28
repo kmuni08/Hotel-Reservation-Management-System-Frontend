@@ -26,6 +26,7 @@ const HotelList = props => {
                 address = {hotel.address}
                 rating= {hotel.rating}
                 description= {hotel.description}
+                coordinates={hotel.location}
                 // creatorId = {hotel.creator}
                 // coordinates = {hotel.location}
                 // numOfDeluxe={hotel.numOfDeluxe}

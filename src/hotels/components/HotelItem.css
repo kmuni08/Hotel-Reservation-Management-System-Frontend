@@ -28,6 +28,14 @@
     border-top: 1px solid #ccc;
 }
 
+.hotel-item__modal-content {
+    padding: 0;
+}
+
+.hotel-item__modal-actions {
+    text-align: right;
+}
+
 .hotel-item__image {
     width: 4rem;
     height: 4rem;
@@ -57,4 +65,9 @@
 
 .hotel-item__info h3 {
     margin: 0 0 0.5rem 15rem;
+}
+
+.map_container{
+    height: 15rem;
+    width: 100%;
 }
