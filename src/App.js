@@ -4,6 +4,7 @@ import Users from './users/pages/Users';
 import Map from './map/pages/Map';
 import SearchEngine from './searchengine/pages/SearchEngine';
 import NewHotel from "./hotels/pages/NewHotel";
+import UserHotels from './hotels/pages/UserHotels';
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 
 const App = () => {
@@ -18,8 +19,8 @@ const App = () => {
                <Route path="/searchengine" exact>
                    <SearchEngine />
                </Route>
-               <Route path= "/hotels" exact>
-                   <NewHotel />
+               <Route path= "/:userId/hotels" exact>
+                   <UserHotels />
                </Route>
                <Route path= "/hotels/new" exact>
                    <NewHotel />

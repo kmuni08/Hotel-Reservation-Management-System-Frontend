@@ -1,15 +1,14 @@
 import React from 'react';
-import {Link} from "react-router-dom";
 
 import Avatar from '../../shared/components/UIElements/Avatar';
 import Card from '../../shared/components/UIElements/Card';
+import Button from '../../shared/components/FormElements/Button';
 import './HotelItem.css';
 
 const HotelItem = props => {
     return (
         <li className="hotel-item">
             <Card className="hotel-item__content">
-                <Link to={`/${props.id}/hotels`}>
                 <div className ="hotel-item__image">
                     <Avatar image = {props.image} alt ={props.name } />
                 </div>
@@ -28,12 +27,10 @@ const HotelItem = props => {
                     {/*<h3> {props.priceOfDeluxe}</h3>*/}
                 </div>
                 <div className = "hotel_item__actions">
-                    <button>VIEW ON MAP</button>
-                    <br></br>
-                    <button>EDIT</button>
-                    <button>DELETE</button>
+                    <Button inverse>VIEW ON MAP</Button>
+                    <Button to={`/hotels/${props.id}`} >EDIT</Button>
+                    <Button danger>DELETE</Button>
                 </div>
-                </Link>
             </Card>
         </li>
     )
