@@ -1,59 +1,25 @@
-import React, { useCallback, useReducer } from 'react';
+import React from 'react';
 import Input from '../../shared/components/FormElements/Input';
 import Button from '../../shared/components/FormElements/Button';
-import './NewHotel.css';
+import './HotelForm.css';
 import {VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE} from "../../shared/util/validators";
-
-const formReducer = (state, action) => {
-    switch (action.type) {
-        case 'INPUT_CHANGE':
-            let formIsValid = true;
-            for (const inputId in state.inputs) {
-                if (inputId === action.inputId) {
-                    formIsValid = formIsValid && action.isValid;
-                } else {
-                    formIsValid = formIsValid && state.inputs[inputId].isValid;
-                }
-            }
-            return {
-                ...state,
-                inputs: {
-                    ...state.inputs,
-                    [action.inputId] : {
-                        value: action.value,
-                        isValid: action.isValid
-                    }
-                },
-                isValid: formIsValid
-            };
-        default:
-            return state;
-    }
-};
+import { useForm } from "../../shared/hooks/form-hook";
 
 const NewHotel = () => {
-
-    const [formState, dispatch] = useReducer(formReducer, {
-        inputs: {
-            name: {
-                value: '',
-                isValid: false
-            },
-            description: {
-                value: '',
-                isValid: false
-            }
+    const [formState, inputHandler] = useForm({
+        name: {
+            value: '',
+            isValid: false
         },
-        isValid: false
-    });
-
-    const inputHandler = useCallback((id, value, isValid) => {
-        dispatch({
-            type: 'INPUT_CHANGE',
-            value: value,
-            isValid: isValid,
-            inputId: id});
-    }, []);
+        address: {
+            value: '',
+            isValid: false
+        },
+        description: {
+            value: '',
+            isValid: false
+        }
+    }, false);
 
     //want to send this to the backend.
     const hotelSubmitHandler = event => {
@@ -75,6 +41,7 @@ const NewHotel = () => {
             <Input
                 id = "address"
                 element= "input"
+                type = "text"
                 label = "Address"
                 validators={[VALIDATOR_REQUIRE()]}
                 errorText="Please enter a valid address."

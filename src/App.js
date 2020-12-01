@@ -6,6 +6,7 @@ import SearchEngine from './searchengine/pages/SearchEngine';
 import NewHotel from "./hotels/pages/NewHotel";
 import UserHotels from './hotels/pages/UserHotels';
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
+import UpdateHotel from "./hotels/pages/UpdateHotel";
 
 const App = () => {
   return(
@@ -24,6 +25,9 @@ const App = () => {
                </Route>
                <Route path= "/hotels/new" exact>
                    <NewHotel />
+               </Route>
+               <Route path="/hotels/:hotelId">
+                   <UpdateHotel />
                </Route>
                <Redirect to="/" />
            </Switch>
