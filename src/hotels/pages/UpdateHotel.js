@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import {VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH} from "../../shared/util/validators";
+import { useForm } from "../../shared/hooks/form-hook";
 
 import Input from '../../shared/components/FormElements/Input';
 import Button from '../../shared/components/FormElements/Button';
-import {VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH} from "../../shared/util/validators";
+import Card from "../../shared/components/UIElements/Card";
 import './HotelForm.css';
-import { useForm } from "../../shared/hooks/form-hook";
 
 const HOTELS = [
     {
@@ -63,22 +64,43 @@ const HOTELS = [
 
 const UpdateHotel = () => {
     const hotelId = useParams().hotelId;
-    const identifiedHotel = HOTELS.find(h => h.id === hotelId);
-
-    const [formState, inputHandler] = useForm({
+    const [formState, inputHandler, setFormData] = useForm({
         title: {
-            value: identifiedHotel.name,
-            isValid: true
+            value: '',
+            isValid: false
         },
         address: {
-            value: identifiedHotel.address,
-            isValid: true
+            value: '',
+            isValid: false
         },
         description: {
-            value: identifiedHotel.description,
-            isValid: true
+            value: '',
+            isValid: false
         }
-    }, true)
+    }, false);
+
+    const identifiedHotel = HOTELS.find(h => h.id === hotelId);
+
+    useEffect(() => {
+        if(identifiedHotel) {
+            setFormData({
+                title: {
+                    value: identifiedHotel.name,
+                    isValid: true
+                },
+                address: {
+                    value: identifiedHotel.address,
+                    isValid: true
+                },
+                description: {
+                    value: identifiedHotel.description,
+                    isValid: true
+                }
+            }, true);
+        }
+    }, [setFormData, identifiedHotel]);
+
+
 
     const hotelUpdateSubmitHandler = event => {
         event.preventDefault();
@@ -88,7 +110,9 @@ const UpdateHotel = () => {
     if(!identifiedHotel) {
         return (
             <div className="center">
-                <h2>Could not find hotel!</h2>
+                <Card>
+                    <h2>Could not find hotel!</h2>
+                </Card>
             </div>
         );
     }
