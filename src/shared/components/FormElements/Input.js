@@ -28,7 +28,7 @@ const Input = props => {
         isTouched: false,
         isValid: props.valid || false
     });
-    //function which recieves action that we can dispatch and update current state etc.
+    //function which receives action that we can dispatch and update current state etc.
 
     const { id, onInput } = props;
     const{ value, isValid } = inputState;
