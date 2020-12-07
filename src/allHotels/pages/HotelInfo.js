@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import {VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH} from "../../shared/util/validators";
+import {VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH, VALIDATOR_MIN} from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/form-hook";
 
 import Input from '../../shared/components/FormElements/Input';
@@ -48,15 +48,18 @@ const HOTELS = [
         description: 'Free breakfast and Wi-Fi. It is near airport for easy access. ',
         deluxe: {
             numOfRooms: 15,
-            price: 250
+            price: 250,
+            deluxe_user_pick: 0
         },
         standard: {
             numOfRooms: 40,
-            price: 75
+            price: 75,
+            standard_user_pick: 0
         },
         suites: {
             numOfRooms: 10,
-            price: 120
+            price: 120,
+            suites_user_pick: 0
         }
     }
 
@@ -73,7 +76,15 @@ const HotelInfo = () => {
             value: '',
             isValid: false
         },
-        description: {
+        deluxe_user_pick: {
+            value: '',
+            isValid: false
+        },
+        standard_user_pick: {
+            value: '',
+            isValid: false
+        },
+        suites_user_pick: {
             value: '',
             isValid: false
         }
@@ -95,7 +106,20 @@ const HotelInfo = () => {
                 description: {
                     value: identifiedHotel.description,
                     isValid: true
+                },
+                deluxe_user_pick: {
+                    value: identifiedHotel.deluxe.deluxe_user_pick,
+                    isValid: true
+                },
+                standard_user_pick: {
+                    value: identifiedHotel.standard.standard_user_pick,
+                    isValid: true
+                },
+                suites_user_pick: {
+                    value: identifiedHotel.suites.suites_user_pick,
+                    isValid: true
                 }
+
             }, true);
         }
     }, [setFormData, identifiedHotel]);
@@ -104,7 +128,14 @@ const HotelInfo = () => {
 
     const hotelUpdateSubmitHandler = event => {
         event.preventDefault();
-        console.log(formState.inputs);
+        if(formState.inputs.deluxe_user_pick.value == 0 && formState.inputs.suites_user_pick.value == 0 && formState.inputs.standard_user_pick.value == 0) {
+            console.log('hello')
+            alert('You cannot have all the rooms as 0')
+        }
+        // console.log(formState.inputs);
+        console.log(formState.inputs.deluxe_user_pick.value);
+        console.log(formState.inputs.suites_user_pick.value);
+        console.log(formState.inputs.standard_user_pick.value);
     };
 
     if(!identifiedHotel) {
@@ -116,22 +147,52 @@ const HotelInfo = () => {
             </div>
         );
     }
+
+
     return (
         <form className="hotel-form" onSubmit={hotelUpdateSubmitHandler}>
 
-            <h3> Name of the Hotel: {identifiedHotel.name} </h3>
-            <h3> Address: {identifiedHotel.address} </h3>
-            <h3> Rating: {identifiedHotel.rating} </h3>
-            <h3> {identifiedHotel.description} </h3>
-            <h3> Deluxes Available: {identifiedHotel.deluxe.numOfRooms} </h3>
-            <h3> Deluxe Price: ${identifiedHotel.deluxe.price} </h3>
-            <h3> Suites Available: {identifiedHotel.suites.numOfRooms} </h3>
-            <h3> Suite Price: ${identifiedHotel.suites.price} </h3>
-            <h3> Standard Rooms Available: {identifiedHotel.standard.numOfRooms} </h3>
-            <h3> Standard Room Price: ${identifiedHotel.standard.price} </h3>
+            <h4> Name of the Hotel: {identifiedHotel.name} </h4>
+            <h4> Address: {identifiedHotel.address} </h4>
+            <h4> Rating: {identifiedHotel.rating} </h4>
+            <h4> {identifiedHotel.description} </h4>
+            <h4> Deluxe Rooms Available: {identifiedHotel.deluxe.numOfRooms} rooms, Price: ${identifiedHotel.deluxe.price} per night</h4>
+            <h4> Suites Rooms Available: {identifiedHotel.suites.numOfRooms} rooms, Price: ${identifiedHotel.deluxe.price} per night</h4>
+            <h4> Standard Rooms Available: {identifiedHotel.standard.numOfRooms} rooms, Price: ${identifiedHotel.standard.price} per night</h4>
+            <Input
+                id = "deluxe_user_pick"
+                element= "input"
+                type = "number"
+                label = "Deluxe"
+                validators={[VALIDATOR_REQUIRE(), VALIDATOR_MIN(0)]}
+                errorText="Please enter a valid number of deluxe rooms."
+                onInput = {inputHandler}
+                value = {identifiedHotel.deluxe.deluxe_user_pick}
+                valid = {true}
+            />
+            <Input
+                id = "suites_user_pick"
+                element= "input"
+                type = "number"
+                label = "Suites"
+                validators={[VALIDATOR_REQUIRE(), VALIDATOR_MIN(0)]}
+                errorText="Please enter a valid number of suite rooms."
+                onInput = {inputHandler}
+                value = {identifiedHotel.suites.suites_user_pick}
+                valid = {true}
+            />
+            <Input
+                id = "standard_user_pick"
+                element= "input"
+                type = "number"
+                label = "Standard"
+                validators={[VALIDATOR_REQUIRE(), VALIDATOR_MIN(0)]}
+                errorText="Please enter a valid number of standard rooms."
+                onInput = {inputHandler}
+                value = {identifiedHotel.standard.standard_user_pick}
+                valid = {true}
 
-
-
+            />
             <Button type="submit" disabled={!formState.isValid} >
                 REGISTER FOR HOTEL
             </Button>
