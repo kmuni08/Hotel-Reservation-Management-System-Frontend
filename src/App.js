@@ -1,7 +1,5 @@
 import React, { useState, useCallback } from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
-import Users from './users/pages/Users';
-import Map from './map/pages/Map';
 import SearchEngine from './searchengine/pages/SearchEngine';
 import NewHotel from "./hotels/pages/NewHotel";
 import UserHotels from './hotels/pages/UserHotels';
@@ -44,16 +42,13 @@ const App = () => {
       routes = (
           <Switch>
               <Route path="/" exact>
-                  <Map />
+                  <SearchEngine />
               </Route>
               <Route path= "/allhotels" exact>
                   <AllHotels />
               </Route>
               <Route path= "/allhotels/:hotelId" exact>
                   <HotelInfo />
-              </Route>
-              <Route path="/searchengine" exact>
-                  <SearchEngine />
               </Route>
               <Route path="/auth">
                   <Auth />

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import MainHeader from './MainHeader';
 import NavLinks from './NavLinks';
 import SideDrawer from './SideDrawer';
+import DateTime from '../CurrentDate/DateTime';
 
 import './MainNavigation.css';
 import Backdrop from "../UIElements/Backdrop";
@@ -30,9 +31,10 @@ const MainNavigation = props => {
                 <span />
             </button>
             <h1 className = "main-navigation__title">
-                <Link to="/">
-                    Hotel Management System
-                </Link>
+                {/*<Link to="/">*/}
+                {/*    Hotel Management System*/}
+                {/*</Link>*/}
+                <DateTime />
             </h1>
             <nav className="main-navigation__header-nav">
                 <NavLinks />
