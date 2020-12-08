@@ -68,14 +68,6 @@ const HotelItem = props => {
                         <h3> {props.address} </h3>
                         <h3> {props.rating} stars rating</h3>
                         <h3> {props.description}</h3>
-                        {/*<h3> {props.creatorId}</h3>*/}
-                        {/*<h3> {props.coordinates}</h3>*/}
-                        {/*<h3> {props.numOfDeluxe}</h3>*/}
-                        {/*<h3> {props.priceOfDeluxe}</h3>*/}
-                        {/*<h3> {props.numOfStandard}</h3>*/}
-                        {/*<h3> {props.priceOfDeluxe}</h3>*/}
-                        {/*<h3> {props.numOfSuites}</h3>*/}
-                        {/*<h3> {props.priceOfDeluxe}</h3>*/}
                     </div>
                     <div className = "hotel_item__actions">
                         <Button inverse onClick={openMapHandler}>VIEW ON MAP</Button>

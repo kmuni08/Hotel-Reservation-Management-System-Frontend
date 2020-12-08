@@ -11,7 +11,7 @@ const DateTime = () => {
     }, []);
 
     return (
-        <h4>{`${dateTime.toLocaleDateString()} ${dateTime.toLocaleTimeString()}`}</h4>
+        <h1>{`${dateTime.toLocaleDateString()} ${dateTime.toLocaleTimeString()}`}</h1>
     );
 
 }

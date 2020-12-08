@@ -30,14 +30,6 @@ const HotelList = props => {
                 rating= {hotel.rating}
                 description= {hotel.description}
                 coordinates={hotel.location}
-                // creatorId = {hotel.creator}
-                // coordinates = {hotel.location}
-                // numOfDeluxe={hotel.numOfDeluxe}
-                // priceOfDeluxe={hotel.priceOfDeluxe}
-                // numOfStandard={hotel.numOfStandard}
-                // priceOfStandard={hotel.priceOfStandard}
-                // numOfSuites={hotel.numOfSuites}
-                // priceOfSuites={hotel.priceOfSuites}
             />
         ))}
     </ul>;

@@ -30,12 +30,12 @@ const MainNavigation = props => {
                 <span />
                 <span />
             </button>
-            <h1 className = "main-navigation__title">
+            <nav className = "main-navigation__title">
                 {/*<Link to="/">*/}
                 {/*    Hotel Management System*/}
                 {/*</Link>*/}
                 <DateTime />
-            </h1>
+            </nav>
             <nav className="main-navigation__header-nav">
                 <NavLinks />
             </nav>
