@@ -22,38 +22,53 @@ const App = () => {
        setIsLoggedIn(false);
   }, []);
 
+  let routes;
+
+  if(isLoggedIn) {
+    routes = (
+        <Switch>
+            <Route path= "/:userId/hotels" exact>
+                <UserHotels />
+            </Route>
+            <Route path= "/hotels/new" exact>
+                <NewHotel />
+            </Route>
+            <Route path="/hotels/:hotelId">
+                <UpdateHotel />
+            </Route>
+            <Redirect to="/" />
+        </Switch>
+
+    );
+  } else {
+      routes = (
+          <Switch>
+              <Route path="/" exact>
+                  <Map />
+              </Route>
+              <Route path= "/allhotels" exact>
+                  <AllHotels />
+              </Route>
+              <Route path= "/allhotels/:hotelId" exact>
+                  <HotelInfo />
+              </Route>
+              <Route path="/searchengine" exact>
+                  <SearchEngine />
+              </Route>
+              <Route path="/auth">
+                  <Auth />
+              </Route>
+              <Redirect to = "/auth" />
+          </Switch>
+
+      );
+  }
   return(
       <AuthContext.Provider value = {{isLoggedIn: isLoggedIn, login: login, logout: logout }}>
           <Router>
               <MainNavigation />
               <main>
-                  <Switch>
-                      <Route path="/" exact>
-                          <Map />
-                      </Route>
-                      <Route path= "/allhotels" exact>
-                          <AllHotels />
-                      </Route>
-                      <Route path= "/allhotels/:hotelId" exact>
-                          <HotelInfo />
-                      </Route>
-                      <Route path="/searchengine" exact>
-                          <SearchEngine />
-                      </Route>
-                      <Route path= "/:userId/hotels" exact>
-                          <UserHotels />
-                      </Route>
-                      <Route path= "/hotels/new" exact>
-                          <NewHotel />
-                      </Route>
-                      <Route path="/hotels/:hotelId">
-                          <UpdateHotel />
-                      </Route>
-                      <Route path="/auth">
-                          <Auth />
-                      </Route>
-                      <Redirect to="/" />
-                  </Switch>
+                  {routes}
               </main>
           </Router>
       </AuthContext.Provider>

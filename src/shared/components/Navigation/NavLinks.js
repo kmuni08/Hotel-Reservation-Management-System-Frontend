@@ -17,6 +17,11 @@ const NavLinks = props => {
                 <NavLink to="/allhotels" exact> All HOTELS</NavLink>
             </li>
         )}
+        {!auth.isLoggedIn && (
+            <li>
+                <NavLink to="/searchengine"> SEARCH ENGINE</NavLink>
+            </li>
+        )}
         {auth.isLoggedIn && (
             <li>
                 <NavLink to="/u1/hotels" exact> MY HOTELS</NavLink>
@@ -29,12 +34,12 @@ const NavLinks = props => {
         )}
         {!auth.isLoggedIn && (
             <li>
-                <NavLink to="/searchengine"> SEARCH ENGINE</NavLink>
+                <NavLink to="/auth"> AUTHENTICATE</NavLink>
             </li>
         )}
-        {!auth.isLoggedIn && (
+        {auth.isLoggedIn && (
             <li>
-                <NavLink to="/auth"> AUTHENTICATE</NavLink>
+                <button onClick = {auth.logout}>LOGOUT</button>
             </li>
         )}
 

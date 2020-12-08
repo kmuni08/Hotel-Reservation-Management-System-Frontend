@@ -132,10 +132,10 @@ const HotelInfo = () => {
             console.log('hello')
             alert('You cannot have all the rooms as 0')
         }
-        // console.log(formState.inputs);
-        console.log(formState.inputs.deluxe_user_pick.value);
-        console.log(formState.inputs.suites_user_pick.value);
-        console.log(formState.inputs.standard_user_pick.value);
+        console.log(formState.inputs);
+        // console.log(formState.inputs.deluxe_user_pick.value);
+        // console.log(formState.inputs.suites_user_pick.value);
+        // console.log(formState.inputs.standard_user_pick.value);
     };
 
     if(!identifiedHotel) {
