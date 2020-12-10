@@ -9,7 +9,7 @@ const NavLinks = props => {
     return <ul className = "nav-links">
         {!auth.isLoggedIn && (
             <li>
-                <NavLink to="/"> SEARCH ENGINE</NavLink>
+                <NavLink to="/"> SEARCH FILTER</NavLink>
             </li>
         )}
         {!auth.isLoggedIn && (

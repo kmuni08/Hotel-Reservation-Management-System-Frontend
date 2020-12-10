@@ -27,7 +27,7 @@ const SearchEngine = () => {
                     id = "name"
                     element= "input"
                     type = "text"
-                    label = "Which hotel would you like to stay at today? "
+                    label = "Where would you like to make a reservation at today? "
                     validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(0)]}
                     errorText="Please enter the name of the hotel"
                     onInput = {inputHandler}
