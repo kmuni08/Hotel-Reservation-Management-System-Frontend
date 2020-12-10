@@ -6,6 +6,7 @@ import { useForm } from "../../shared/hooks/form-hook";
 import Input from '../../shared/components/FormElements/Input';
 import Button from '../../shared/components/FormElements/Button';
 import Card from "../../shared/components/UIElements/Card";
+import ScheduleReservation from "../../shared/components/DateRangePicker/ScheduleReservation";
 import './HotelForm.css';
 
 const HOTELS = [
@@ -193,6 +194,9 @@ const HotelInfo = () => {
                 valid = {true}
 
             />
+
+            <ScheduleReservation />
+
             <Button type="submit" disabled={!formState.isValid} >
                 REGISTER FOR HOTEL
             </Button>
