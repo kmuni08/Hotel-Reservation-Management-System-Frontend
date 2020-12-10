@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
-import SearchEngine from './searchengine/pages/SearchEngine';
+import SearchEngine from './allHotels/pages/SearchEngine';
 import NewHotel from "./hotels/pages/NewHotel";
 import UserHotels from './hotels/pages/UserHotels';
 import MainNavigation from "./shared/components/Navigation/MainNavigation";

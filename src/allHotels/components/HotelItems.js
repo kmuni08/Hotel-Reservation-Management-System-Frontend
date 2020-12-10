@@ -35,8 +35,8 @@ const HotelItems = props => {
                 show={showMap}
                 onCancel={closeMapHandler}
                 header = {props.address}
-                contentClass = "hotel-item__modal-content"
-                footerClass ="hotel-item__modal-actions"
+                contentClass = "hotel-user-item__modal-content"
+                footerClass ="hotel-user-item__modal-actions"
                 footer = {<Button onClick = {closeMapHandler}>CLOSE</Button>}
             >
                 <div className = "map_container">
@@ -47,7 +47,7 @@ const HotelItems = props => {
                 show={showConfirmModal}
                 onCancel = {cancelDeleteHandler}
                 header = "Are you sure?"
-                footerClass = "hotel-item__modal-action"
+                footerClass = "hotel-user-item__modal-action"
                 footer = {
                     <React.Fragment>
                         <Button inverse onClick = {cancelDeleteHandler}> CANCEL </Button>
@@ -58,26 +58,18 @@ const HotelItems = props => {
                     Do you want to proceed and delete this place? It cannot be undone.
                 </p>
             </Modal>
-            <li className="hotel-item">
-                <Card className="hotel-item__content">
-                    <div className ="hotel-item__image">
+            <li className="hotel-user-item">
+                <Card className="hotel-user-item__content">
+                    <div className ="hotel-user-item__image">
                         <Avatar image = {props.image} alt ={props.name } />
                     </div>
-                    <div className ="hotel-item__info">
+                    <div className ="hotel-user-item__info">
                         <h2> {props.name}</h2>
                         <h3> {props.address} </h3>
                         <h3> {props.rating} stars rating</h3>
                         <h3> {props.description}</h3>
-                        {/*<h3> {props.creatorId}</h3>*/}
-                        {/*<h3> {props.coordinates}</h3>*/}
-                        {/*<h3> {props.numOfDeluxe}</h3>*/}
-                        {/*<h3> {props.priceOfDeluxe}</h3>*/}
-                        {/*<h3> {props.numOfStandard}</h3>*/}
-                        {/*<h3> {props.priceOfDeluxe}</h3>*/}
-                        {/*<h3> {props.numOfSuites}</h3>*/}
-                        {/*<h3> {props.priceOfDeluxe}</h3>*/}
                     </div>
-                    <div className = "hotel_item__actions">
+                    <div className = "hotel-user-item__actions">
                         <Button inverse onClick={openMapHandler}>VIEW ON MAP</Button>
                         <Button to={`/allhotels/${props.id}`} >REGISTER</Button>
                     </div>

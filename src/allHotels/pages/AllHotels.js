@@ -13,7 +13,7 @@ const HOTELS = [
             lat: 40.7484405,
             lng: -73.9878584
         },
-        description: 'Aiport hotel with a pool and free shuttle. Free Wi-Fi',
+        description: 'Airport hotel with a pool and free shuttle. Free Wi-Fi',
         deluxe: {
             numOfRooms: 25,
             price: 300

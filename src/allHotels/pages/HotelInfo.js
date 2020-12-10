@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import {VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH, VALIDATOR_MIN} from "../../shared/util/validators";
+import {VALIDATOR_REQUIRE, VALIDATOR_MIN} from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/form-hook";
 
 import Input from '../../shared/components/FormElements/Input';
@@ -69,7 +69,7 @@ const HOTELS = [
 const HotelInfo = () => {
     const hotelId = useParams().hotelId;
     const [formState, inputHandler, setFormData] = useForm({
-        title: {
+        name: {
             value: '',
             isValid: false
         },
@@ -120,23 +120,20 @@ const HotelInfo = () => {
                     value: identifiedHotel.suites.suites_user_pick,
                     isValid: true
                 }
-
             }, true);
         }
     }, [setFormData, identifiedHotel]);
 
-
-
     const hotelUpdateSubmitHandler = event => {
         event.preventDefault();
-        if(formState.inputs.deluxe_user_pick.value == 0 && formState.inputs.suites_user_pick.value == 0 && formState.inputs.standard_user_pick.value == 0) {
+        if(formState.inputs.deluxe_user_pick.value === '0' && formState.inputs.suites_user_pick.value === '0' && formState.inputs.standard_user_pick.value === '0') {
             console.log('hello')
             alert('You cannot have all the rooms as 0')
         }
+        else if(formState.inputs.deluxe_user_pick.value === undefined && formState.inputs.suites_user_pick.value === undefined && formState.inputs.standard_user_pick.value === undefined) {
+            alert('You cannot leave them blank')
+        }
         console.log(formState.inputs);
-        // console.log(formState.inputs.deluxe_user_pick.value);
-        // console.log(formState.inputs.suites_user_pick.value);
-        // console.log(formState.inputs.standard_user_pick.value);
     };
 
     if(!identifiedHotel) {
@@ -148,7 +145,6 @@ const HotelInfo = () => {
             </div>
         );
     }
-
 
     return (
         <form className="hotel-form" onSubmit={hotelUpdateSubmitHandler}>
@@ -194,16 +190,12 @@ const HotelInfo = () => {
                 valid = {true}
 
             />
-
             <ScheduleReservation />
-
             <Button type="submit" disabled={!formState.isValid} >
                 REGISTER FOR HOTEL
             </Button>
-
         </form>
     );
-
 };
 
 export default HotelInfo;
