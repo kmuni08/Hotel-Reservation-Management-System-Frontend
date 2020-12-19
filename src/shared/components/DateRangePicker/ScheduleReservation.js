@@ -12,6 +12,23 @@ const ScheduleReservation = (props) => {
 
     const [focus, $focus] = React.useState(null);
 
+    if (range.startDate != null && range.endDate != null) {
+        // let start_date = range.startDate
+        // let start_date_month = start_date._d.getMonth() + 1;
+        // localStorage.setItem('start_month_picked', String(start_date_month));
+        // let start_date_date = start_date._d.getDate();
+        // localStorage.setItem('start_date_picked', String(start_date_date));
+        // let start_date_full_year = start_date._d.getFullYear()
+        // localStorage.setItem('start_year_picked', String(start_date_full_year));
+        // let end_date = range.endDate
+        // let end_date_month = end_date._d.getMonth() + 1;
+        // localStorage.setItem('end_month_picked', String(end_date_month));
+        // let end_date_date = end_date._d.getDate()
+        // localStorage.setItem('end_date_picked', String(end_date_date));
+        // let end_date_full_year = end_date._d.getFullYear()
+        // localStorage.setItem('end_year_picked', String(end_date_full_year));
+
+    }
 
 
     return(

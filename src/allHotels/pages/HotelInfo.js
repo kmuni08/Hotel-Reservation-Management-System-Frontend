@@ -120,19 +120,21 @@ const HotelInfo = () => {
                     value: identifiedHotel.suites.suites_user_pick,
                     isValid: true
                 }
-            }, true);
+            }, false);
         }
     }, [setFormData, identifiedHotel]);
 
     const hotelUpdateSubmitHandler = event => {
-        event.preventDefault();
         if(formState.inputs.deluxe_user_pick.value === '0' && formState.inputs.suites_user_pick.value === '0' && formState.inputs.standard_user_pick.value === '0') {
             console.log('hello')
-            alert('You cannot have all the rooms as 0')
+            alert('You cannot have all the rooms as 0');
+            return;
         }
-        else if(formState.inputs.deluxe_user_pick.value === undefined && formState.inputs.suites_user_pick.value === undefined && formState.inputs.standard_user_pick.value === undefined) {
-            alert('You cannot leave them blank')
+        else if(formState.inputs.deluxe_user_pick.value === undefined || formState.inputs.suites_user_pick.value === undefined || formState.inputs.standard_user_pick.value === undefined) {
+            alert('All the text fields must have specified number of rooms');
+            return;
         }
+        event.preventDefault();
         console.log(formState.inputs);
     };
 
@@ -156,6 +158,7 @@ const HotelInfo = () => {
             <h4> Deluxe Rooms Available: {identifiedHotel.deluxe.numOfRooms} rooms, Price: ${identifiedHotel.deluxe.price} per night</h4>
             <h4> Suites Rooms Available: {identifiedHotel.suites.numOfRooms} rooms, Price: ${identifiedHotel.deluxe.price} per night</h4>
             <h4> Standard Rooms Available: {identifiedHotel.standard.numOfRooms} rooms, Price: ${identifiedHotel.standard.price} per night</h4>
+            <ScheduleReservation />
             <Input
                 id = "deluxe_user_pick"
                 element= "input"
@@ -165,7 +168,6 @@ const HotelInfo = () => {
                 errorText="Please enter a valid number of deluxe rooms."
                 onInput = {inputHandler}
                 value = {identifiedHotel.deluxe.deluxe_user_pick}
-                valid = {true}
             />
             <Input
                 id = "suites_user_pick"
@@ -176,7 +178,6 @@ const HotelInfo = () => {
                 errorText="Please enter a valid number of suite rooms."
                 onInput = {inputHandler}
                 value = {identifiedHotel.suites.suites_user_pick}
-                valid = {true}
             />
             <Input
                 id = "standard_user_pick"
@@ -187,11 +188,9 @@ const HotelInfo = () => {
                 errorText="Please enter a valid number of standard rooms."
                 onInput = {inputHandler}
                 value = {identifiedHotel.standard.standard_user_pick}
-                valid = {true}
 
             />
-            <ScheduleReservation />
-            <Button type="submit" disabled={!formState.isValid} >
+            <Button type="submit" disabled={!formState.isValid}>
                 REGISTER FOR HOTEL
             </Button>
         </form>
