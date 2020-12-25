@@ -14,7 +14,6 @@ const HOTELS = [
         id: '1',
         image: 'https://content.fortune.com/wp-content/uploads/2020/05/F500-2020-338-Hilton-.jpg',
         name: 'Hilton',
-        rating: 4.0,
         address: '42 Street, Midtown NYC',
         creator: 'u1',
         location: {
@@ -39,7 +38,6 @@ const HOTELS = [
         id: '2',
         image: 'https://www.gannett-cdn.com/presto/2019/04/16/USAT/15d11370-b0e6-4743-adf0-387d1fa95ab5-AP_Marriott_Starwood_Sale.JPG?crop=4851,2740,x0,y0&width=3200&height=1808&format=pjpg&auto=webp',
         name: 'Marriot',
-        rating: 3.8,
         address: '1 Union Turnpike, Queens',
         creator: 'u2',
         location: {
@@ -153,12 +151,9 @@ const HotelInfo = () => {
 
             <h4> Name of the Hotel: {identifiedHotel.name} </h4>
             <h4> Address: {identifiedHotel.address} </h4>
-            <h4> Rating: {identifiedHotel.rating} </h4>
             <h4> {identifiedHotel.description} </h4>
-            <h4> Deluxe Rooms Available: {identifiedHotel.deluxe.numOfRooms} rooms, Price: ${identifiedHotel.deluxe.price} per night</h4>
-            <h4> Suites Rooms Available: {identifiedHotel.suites.numOfRooms} rooms, Price: ${identifiedHotel.deluxe.price} per night</h4>
-            <h4> Standard Rooms Available: {identifiedHotel.standard.numOfRooms} rooms, Price: ${identifiedHotel.standard.price} per night</h4>
             <ScheduleReservation />
+            <h4> Deluxe Rooms Available: {identifiedHotel.deluxe.numOfRooms} rooms available, Price: ${identifiedHotel.deluxe.price} per night</h4>
             <Input
                 id = "deluxe_user_pick"
                 element= "input"
@@ -169,6 +164,7 @@ const HotelInfo = () => {
                 onInput = {inputHandler}
                 value = {identifiedHotel.deluxe.deluxe_user_pick}
             />
+            <h4> Suites Rooms Available: {identifiedHotel.suites.numOfRooms} rooms available, Price: ${identifiedHotel.deluxe.price} per night</h4>
             <Input
                 id = "suites_user_pick"
                 element= "input"
@@ -179,6 +175,7 @@ const HotelInfo = () => {
                 onInput = {inputHandler}
                 value = {identifiedHotel.suites.suites_user_pick}
             />
+            <h4> Standard Rooms Available: {identifiedHotel.standard.numOfRooms} rooms available, Price: ${identifiedHotel.standard.price} per night</h4>
             <Input
                 id = "standard_user_pick"
                 element= "input"

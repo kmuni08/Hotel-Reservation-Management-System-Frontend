@@ -6,7 +6,7 @@ import Button from '../../shared/components/FormElements/Button';
 import {
     VALIDATOR_EMAIL,
     VALIDATOR_MINLENGTH,
-    VALIDATOR_REQUIRE
+    VALIDATOR_REQUIRE, VALIDATOR_USER
 } from '../../shared/util/validators';
 import { useForm } from '../../shared/hooks/form-hook';
 import { AuthContext } from "../../shared/context/auth-context";
@@ -19,6 +19,10 @@ const Auth = () => {
     const [formState, inputHandler, setFormData] = useForm(
         {
             email: {
+                value: '',
+                isValid: false
+            },
+            user_type: {
                 value: '',
                 isValid: false
             },
@@ -37,7 +41,7 @@ const Auth = () => {
                     ...formState.inputs,
                     name: undefined
                 },
-                formState.inputs.email.isValid && formState.inputs.password.isValid
+                formState.inputs.email.isValid && formState.inputs.user_type.isValid && formState.inputs.password.isValid
             );
         } else {
             setFormData(
@@ -83,6 +87,15 @@ const Auth = () => {
                     label="E-Mail"
                     validators={[VALIDATOR_EMAIL()]}
                     errorText="Please enter a valid email address."
+                    onInput={inputHandler}
+                />
+                <Input
+                    element="input"
+                    id="user_type"
+                    type="text"
+                    label="User_Type"
+                    validators={[VALIDATOR_USER()]}
+                    errorText="Please enter a valid user type. Either admin or customer."
                     onInput={inputHandler}
                 />
                 <Input
