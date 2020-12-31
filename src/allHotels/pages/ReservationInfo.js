@@ -86,7 +86,7 @@ const HotelInfo = () => {
         try {
             await sendRequest(
                 `http://localhost:5000/api/reservations/cancel/${hotelId}`,
-                'PATCH',
+                'DELETE',
                 null,
                 {
                     'Content-Type': 'application/json', Authorization: 'Bearer ' + auth.token
