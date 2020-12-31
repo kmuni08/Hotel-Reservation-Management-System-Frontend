@@ -1,80 +1,25 @@
-import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState, useContext }  from 'react';
+import { useParams, useHistory  } from 'react-router-dom';
 import {VALIDATOR_REQUIRE, VALIDATOR_MIN} from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/form-hook";
-
+import { useHttpClient } from "../../shared/hooks/http-hook";
 import Input from '../../shared/components/FormElements/Input';
 import Button from '../../shared/components/FormElements/Button';
 import Card from "../../shared/components/UIElements/Card";
 import ScheduleReservation from "../../shared/components/DateRangePicker/ScheduleReservation";
 import './HotelForm.css';
-
-const HOTELS = [
-    {
-        id: '1',
-        image: 'https://content.fortune.com/wp-content/uploads/2020/05/F500-2020-338-Hilton-.jpg',
-        name: 'Hilton',
-        address: '42 Street, Midtown NYC',
-        creator: 'u1',
-        location: {
-            lat: 40.7484405,
-            lng: -73.9878584
-        },
-        description: 'Airport hotel with a pool and free shuttle. Free Wi-Fi',
-        deluxe: {
-            numOfRooms: 25,
-            price: 300
-        },
-        standard: {
-            numOfRooms: 50,
-            price: 85
-        },
-        suites: {
-            numOfRooms: 15,
-            price: 150
-        }
-    },
-    {
-        id: '2',
-        image: 'https://www.gannett-cdn.com/presto/2019/04/16/USAT/15d11370-b0e6-4743-adf0-387d1fa95ab5-AP_Marriott_Starwood_Sale.JPG?crop=4851,2740,x0,y0&width=3200&height=1808&format=pjpg&auto=webp',
-        name: 'Marriot',
-        address: '1 Union Turnpike, Queens',
-        creator: 'u2',
-        location: {
-            lat: 30.7484405,
-            lng: -83.9878584
-        },
-        description: 'Free breakfast and Wi-Fi. It is near airport for easy access. ',
-        deluxe: {
-            numOfRooms: 15,
-            price: 250,
-            deluxe_user_pick: 0
-        },
-        standard: {
-            numOfRooms: 40,
-            price: 75,
-            standard_user_pick: 0
-        },
-        suites: {
-            numOfRooms: 10,
-            price: 120,
-            suites_user_pick: 0
-        }
-    }
-
-];
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import { AuthContext } from "../../shared/context/auth-context";
 
 const HotelInfo = () => {
+    const auth = useContext(AuthContext);
+    const { isLoading, error, sendRequest, clearError } = useHttpClient();
+    const [loadedHotel, setLoadedHotel] = useState();
     const hotelId = useParams().hotelId;
+    const history = useHistory();
+
     const [formState, inputHandler, setFormData] = useForm({
-        name: {
-            value: '',
-            isValid: false
-        },
-        address: {
-            value: '',
-            isValid: false
-        },
         deluxe_user_pick: {
             value: '',
             isValid: false
@@ -89,40 +34,58 @@ const HotelInfo = () => {
         }
     }, false);
 
-    const identifiedHotel = HOTELS.find(h => h.id === hotelId);
-
     useEffect(() => {
-        if(identifiedHotel) {
-            setFormData({
-                name: {
-                    value: identifiedHotel.name,
-                    isValid: true
-                },
-                address: {
-                    value: identifiedHotel.address,
-                    isValid: true
-                },
-                description: {
-                    value: identifiedHotel.description,
-                    isValid: true
-                },
-                deluxe_user_pick: {
-                    value: identifiedHotel.deluxe.deluxe_user_pick,
-                    isValid: true
-                },
-                standard_user_pick: {
-                    value: identifiedHotel.standard.standard_user_pick,
-                    isValid: true
-                },
-                suites_user_pick: {
-                    value: identifiedHotel.suites.suites_user_pick,
-                    isValid: true
-                }
-            }, false);
-        }
-    }, [setFormData, identifiedHotel]);
+        const fetchHotel = async () => {
+            try {
 
-    const hotelUpdateSubmitHandler = event => {
+                const responseData = await sendRequest(`http://localhost:5000/api/hotels/${hotelId}`);
+                setLoadedHotel(responseData.hotel);
+                setFormData({
+                    name: {
+                        value: responseData.hotel.name,
+                        isValid: true
+                    },
+                    address: {
+                        value: responseData.hotel.address,
+                        isValid: true
+                    },
+                    description: {
+                        value: responseData.hotel.description,
+                        isValid: true
+                    },
+                    deluxeNumOfRooms: {
+                        value: responseData.hotel.deluxeNumOfRooms,
+                        isValid: true
+                    },
+                    deluxePrice: {
+                        value: responseData.hotel.deluxePrice,
+                        isValid: true
+                    },
+                    standardNumOfRooms: {
+                        value: responseData.hotel.standardNumOfRooms,
+                        isValid: true
+                    },
+                    standardPrice: {
+                        value: responseData.hotel.standardPrice,
+                        isValid: true
+                    },
+                    suitesNumOfRooms: {
+                        value: responseData.hotel.suitesNumOfRooms,
+                        isValid: true
+                    },
+                    suitesPrice: {
+                        value: responseData.hotel.suitesPrice,
+                        isValid: true
+                    }
+                }, true);
+
+            } catch (err) {}
+        }
+
+        fetchHotel();
+    }, [sendRequest, hotelId, setFormData]);
+
+    const hotelReservationSubmitHandler = async event => {
         if(formState.inputs.deluxe_user_pick.value === '0' && formState.inputs.suites_user_pick.value === '0' && formState.inputs.standard_user_pick.value === '0') {
             console.log('hello')
             alert('You cannot have all the rooms as 0');
@@ -132,65 +95,100 @@ const HotelInfo = () => {
             alert('All the text fields must have specified number of rooms');
             return;
         }
+        console.log('submitted');
         event.preventDefault();
-        console.log(formState.inputs);
+        try {
+            await sendRequest(
+                `http://localhost:5000/api/reservations`,
+                'POST',
+                JSON.stringify({
+                    name: formState.inputs.name.value,
+                    address: formState.inputs.address.value,
+                    description: formState.inputs.description.value,
+                    hotelId: hotelId,
+                    deluxeNumOfRooms: formState.inputs.deluxeNumOfRooms.value,
+                    deluxe_user_pick: parseInt(formState.inputs.deluxe_user_pick.value),
+                    deluxePrice: formState.inputs.deluxePrice.value,
+                    standardNumOfRooms: formState.inputs.standardNumOfRooms.value,
+                    standard_user_pick: parseInt(formState.inputs.standard_user_pick.value),
+                    standardPrice: formState.inputs.standardPrice.value,
+                    suitesNumOfRooms: formState.inputs.suitesNumOfRooms.value,
+                    suites_user_pick: parseInt(formState.inputs.suites_user_pick.value),
+                    suitesPrice: formState.inputs.suitesPrice.value
+                }),
+                {
+                    'Content-Type': 'application/json', Authorization: 'Bearer ' + auth.token
+                }
+            );
+            history.push('/allhotels');
+        } catch (err) {}
     };
 
-    if(!identifiedHotel) {
+    if (isLoading) {
+        return (
+            <div className="center">
+                <LoadingSpinner />
+            </div>
+        );
+    }
+
+    if(!loadedHotel && !error) {
         return (
             <div className="center">
                 <Card>
-                    <h2>Could not find hotel!</h2>
+                    <h2>Could not do a reservation, cannot find hotel!</h2>
                 </Card>
             </div>
         );
     }
 
     return (
-        <form className="hotel-form" onSubmit={hotelUpdateSubmitHandler}>
+        <React.Fragment>
+            <ErrorModal error = {error} onClear = {clearError} />
+            {!isLoading && loadedHotel && (
+                <form className="hotel-form" onSubmit={hotelReservationSubmitHandler}>
 
-            <h4> Name of the Hotel: {identifiedHotel.name} </h4>
-            <h4> Address: {identifiedHotel.address} </h4>
-            <h4> {identifiedHotel.description} </h4>
-            <ScheduleReservation />
-            <h4> Deluxe Rooms Available: {identifiedHotel.deluxe.numOfRooms} rooms available, Price: ${identifiedHotel.deluxe.price} per night</h4>
-            <Input
-                id = "deluxe_user_pick"
-                element= "input"
-                type = "number"
-                label = "Deluxe"
-                validators={[VALIDATOR_REQUIRE(), VALIDATOR_MIN(0)]}
-                errorText="Please enter a valid number of deluxe rooms."
-                onInput = {inputHandler}
-                value = {identifiedHotel.deluxe.deluxe_user_pick}
-            />
-            <h4> Suites Rooms Available: {identifiedHotel.suites.numOfRooms} rooms available, Price: ${identifiedHotel.deluxe.price} per night</h4>
-            <Input
-                id = "suites_user_pick"
-                element= "input"
-                type = "number"
-                label = "Suites"
-                validators={[VALIDATOR_REQUIRE(), VALIDATOR_MIN(0)]}
-                errorText="Please enter a valid number of suite rooms."
-                onInput = {inputHandler}
-                value = {identifiedHotel.suites.suites_user_pick}
-            />
-            <h4> Standard Rooms Available: {identifiedHotel.standard.numOfRooms} rooms available, Price: ${identifiedHotel.standard.price} per night</h4>
-            <Input
-                id = "standard_user_pick"
-                element= "input"
-                type = "number"
-                label = "Standard"
-                validators={[VALIDATOR_REQUIRE(), VALIDATOR_MIN(0)]}
-                errorText="Please enter a valid number of standard rooms."
-                onInput = {inputHandler}
-                value = {identifiedHotel.standard.standard_user_pick}
+                    <h4> Name of the Hotel: {loadedHotel.name} </h4>
+                    <h4> Address: {loadedHotel.address} </h4>
+                    <h4> {loadedHotel.description} </h4>
+                    <ScheduleReservation />
+                    <h4> Deluxe Rooms Available: {loadedHotel.deluxeNumOfRooms} rooms available, Price: ${loadedHotel.deluxePrice} per night</h4>
+                    <Input
+                        id = "deluxe_user_pick"
+                        element= "input"
+                        type = "number"
+                        label = "Deluxe"
+                        validators={[VALIDATOR_REQUIRE(), VALIDATOR_MIN(0)]}
+                        errorText="Please enter a valid number of deluxe rooms."
+                        onInput = {inputHandler}
+                    />
+                    <h4> Standard Rooms Available: {loadedHotel.standardNumOfRooms} rooms available, Price: ${loadedHotel.standardPrice} per night</h4>
+                    <Input
+                        id = "standard_user_pick"
+                        element= "input"
+                        type = "number"
+                        label = "Standard"
+                        validators={[VALIDATOR_REQUIRE(), VALIDATOR_MIN(0)]}
+                        errorText="Please enter a valid number of standard rooms."
+                        onInput = {inputHandler}
+                    />
+                    <h4> Suites Rooms Available: {loadedHotel.suitesNumOfRooms} rooms available, Price: ${loadedHotel.suitesPrice} per night</h4>
+                    <Input
+                        id = "suites_user_pick"
+                        element= "input"
+                        type = "number"
+                        label = "Suites"
+                        validators={[VALIDATOR_REQUIRE(), VALIDATOR_MIN(0)]}
+                        errorText="Please enter a valid number of suite rooms."
+                        onInput = {inputHandler}
+                    />
+                    <Button type="submit" disabled={!formState.isValid}>
+                        REGISTER FOR HOTEL
+                    </Button>
+                </form>
 
-            />
-            <Button type="submit" disabled={!formState.isValid}>
-                REGISTER FOR HOTEL
-            </Button>
-        </form>
+            )};
+        </React.Fragment>
     );
 };
 

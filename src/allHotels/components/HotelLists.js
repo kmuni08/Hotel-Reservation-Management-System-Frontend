@@ -24,7 +24,6 @@ const HotelLists = props => {
                 image= {hotel.image}
                 name = {hotel.name}
                 address = {hotel.address}
-                rating= {hotel.rating}
                 description= {hotel.description}
                 coordinates={hotel.location}
             />

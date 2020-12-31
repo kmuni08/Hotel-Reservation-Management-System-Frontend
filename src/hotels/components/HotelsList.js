@@ -27,9 +27,10 @@ const HotelList = props => {
                 image= {hotel.image}
                 name = {hotel.name}
                 address = {hotel.address}
-                rating= {hotel.rating}
                 description= {hotel.description}
+                creatorId = {hotel.creator}
                 coordinates={hotel.location}
+                onDelete = {props.onDeleteHotel}
             />
         ))}
     </ul>;

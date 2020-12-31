@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import Avatar from '../../shared/components/UIElements/Avatar';
 import Card from '../../shared/components/UIElements/Card';
 import Button from '../../shared/components/FormElements/Button';
 import Modal from '../../shared/components/UIElements/Modal';
 import Map from '../../shared/components/UIElements/Map';
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import { AuthContext } from '../../shared/context/auth-context';
+import { useHttpClient } from "../../shared/hooks/http-hook";
 import './HotelItem.css';
 
 
 const HotelItem = props => {
+    const {isLoading, error, sendRequest, clearError } = useHttpClient();
+    const auth = useContext(AuthContext);
     const [showMap, setShowMap] = useState(false);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
 
@@ -23,14 +29,26 @@ const HotelItem = props => {
         setShowConfirmModal(false);
     };
 
-    const confirmDeleteHandler = () => {
+    const confirmDeleteHandler = async () => {
         setShowConfirmModal(false);
-        console.log('DELETING...');
+        try {
+            await sendRequest(
+                `http://localhost:5000/api/hotels/${props.id}`,
+                'DELETE',
+                null,
+                {
+                    Authorization: 'Bearer ' + auth.token
+                }
+            );
+            props.onDelete(props.id);
+        } catch (err) {}
+
     };
 
 
     return (
         <React.Fragment>
+            <ErrorModal error = {error} onClear = {clearError} />
             <Modal
                 show={showMap}
                 onCancel={closeMapHandler}
@@ -60,19 +78,25 @@ const HotelItem = props => {
             </Modal>
             <li className="hotel-item">
                 <Card className="hotel-item__content">
+                    {isLoading && <LoadingSpinner as Overlay />}
                     <div className ="hotel-item__image">
                         <Avatar image = {props.image} alt ={props.name } />
                     </div>
                     <div className ="hotel-item__info">
                         <h2> {props.name}</h2>
                         <h3> {props.address} </h3>
-                        <h3> {props.rating} stars rating</h3>
                         <h3> {props.description}</h3>
                     </div>
                     <div className = "hotel_item__actions">
                         <Button inverse onClick={openMapHandler}>VIEW ON MAP</Button>
-                        <Button to={`/hotels/${props.id}`} >EDIT</Button>
-                        <Button danger onClick = {showDeleteWarningHandler}>DELETE</Button>
+                        {auth.userId === props.creatorId && (
+                            <Button to={`/hotels/${props.id}`} >EDIT</Button>
+                        )}
+                        {auth.userId === props.creatorId && (
+                            <Button danger onClick={showDeleteWarningHandler}>
+                                DELETE
+                            </Button>
+                        )}
                     </div>
                 </Card>
             </li>

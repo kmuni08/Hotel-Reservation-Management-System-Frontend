@@ -1,64 +1,16 @@
-import React from 'react';
+import React, { useEffect }  from 'react';
 import {VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH} from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/form-hook";
 import Input from '../../shared/components/FormElements/Input';
 import Button from '../../shared/components/FormElements/Button';
 import HotelLists from '../components/HotelLists';
+import ErrorModal from '../../shared/components/UIElements/ErrorModal';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+import { useHttpClient } from '../../shared/hooks/http-hook';
 import './HotelForm.css';
 
-const SEARCH_HOTELS = [
-    {
-        id: '1',
-        image: 'https://content.fortune.com/wp-content/uploads/2020/05/F500-2020-338-Hilton-.jpg',
-        name: 'Hilton',
-        rating: 4.0,
-        address: '42 Street, Midtown NYC',
-        location: {
-            lat: 40.7484405,
-            lng: -73.9878584
-        },
-        description: 'Airport hotel with a pool and free shuttle. Free Wi-Fi',
-        deluxe: {
-            numOfRooms: 25,
-            price: 300
-        },
-        standard: {
-            numOfRooms: 50,
-            price: 85
-        },
-        suites: {
-            numOfRooms: 15,
-            price: 150
-        }
-    },
-    {
-        id: '2',
-        image: 'https://www.gannett-cdn.com/presto/2019/04/16/USAT/15d11370-b0e6-4743-adf0-387d1fa95ab5-AP_Marriott_Starwood_Sale.JPG?crop=4851,2740,x0,y0&width=3200&height=1808&format=pjpg&auto=webp',
-        name: 'Marriot',
-        rating: 3.8,
-        address: '1 Union Turnpike, Queens',
-        location: {
-            lat: 30.7484405,
-            lng: -83.9878584
-        },
-        description: 'Free breakfast and Wi-Fi. It is near airport for easy access. ',
-        deluxe: {
-            numOfRooms: 15,
-            price: 250
-        },
-        standard: {
-            numOfRooms: 40,
-            price: 75
-        },
-        suites: {
-            numOfRooms: 10,
-            price: 120
-        }
-    }
-
-];
-
 const SearchEngine = () => {
+    const { isLoading, error, sendRequest, clearError } = useHttpClient();
     const [formState, inputHandler] = useForm({
         name: {
             value: '',
@@ -69,13 +21,20 @@ const SearchEngine = () => {
     const [searchHotelName, setSearchHotelName] = React.useState("");
     const [searchHotelResults, setSearchHotelResults] = React.useState([]);
 
-    React.useEffect(() => {
-        const loadedHotels = SEARCH_HOTELS.filter(hotel =>
-            hotel.name.toString().toLowerCase().includes(searchHotelName.toString().toLowerCase())
-        );
-        setSearchHotelResults(loadedHotels);
-    }, [searchHotelName]);
-
+    useEffect(() => {
+        const fetchHotels = async () => {
+            try {
+                const responseData = await sendRequest(
+                    'http://localhost:5000/api/hotels'
+                );
+                const loadedHotels = responseData.hotels.filter(hotel =>
+                      hotel.name.toString().toLowerCase().includes(searchHotelName.toString().toLowerCase())
+                );
+                setSearchHotelResults(loadedHotels);
+            } catch (err) {}
+        };
+        fetchHotels();
+    }, [sendRequest, searchHotelName]);
 
     const hotelSearchSubmitHandler = event => {
         event.preventDefault();
@@ -100,7 +59,13 @@ const SearchEngine = () => {
                     SEARCH
                 </Button>
             </form>
-            <HotelLists hotels = {searchHotelResults} />;
+            <ErrorModal error={error} onClear={clearError} />
+            {isLoading && (
+                <div className="center">
+                    <LoadingSpinner />
+                </div>
+            )}
+            {!isLoading && searchHotelResults && <HotelLists hotels={searchHotelResults} />}
         </React.Fragment>
 
 
