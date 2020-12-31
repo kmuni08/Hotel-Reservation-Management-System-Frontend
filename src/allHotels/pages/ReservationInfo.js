@@ -119,7 +119,6 @@ const HotelInfo = () => {
             <ErrorModal error = {error} onClear = {clearError} />
             {!isLoading && loadedReservation && (
                 <form className="hotel-form" onSubmit={hotelReservationCancelSubmitHandler}>
-
                     <h4> Name of the Hotel: {loadedReservation.name} </h4>
                     <h4> Address: {loadedReservation.address} </h4>
                     <h4> {loadedReservation.description} </h4>
