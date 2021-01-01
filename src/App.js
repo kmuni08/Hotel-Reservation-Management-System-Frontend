@@ -16,9 +16,11 @@ import AllHotels from "./allHotels/pages/AllHotels";
 import HotelInfo from "./allHotels/pages/HotelInfo";
 import Users from "./users/pages/Users";
 import ReservationInfo from './allHotels/pages/ReservationInfo';
+import WelcomePage from './welcomePage/welcome';
+import UserReservation from "./users/pages/UserReservation";
 
 const App = () => {
-    const { token, login, logout, userId } = useAuth();
+    const { token, login, logout, userId} = useAuth();
 
   let routes;
 
@@ -26,6 +28,9 @@ const App = () => {
     routes = (
         <Switch>
             <Route path="/" exact>
+                < WelcomePage />
+            </Route>
+            <Route path="/search" exact>
                 <SearchEngine />
             </Route>
             <Route path= "/allhotels" exact>
@@ -40,6 +45,9 @@ const App = () => {
             <Route path= "/:userId/hotels" exact>
                 <UserHotels />
             </Route>
+            <Route path= "/hotels/uid/:userId" exact>
+                <UserReservation />
+            </Route>
             <Route path= "/hotels/new" exact>
                 <NewHotel />
             </Route>
@@ -49,7 +57,7 @@ const App = () => {
             <Route path="/hotels/:hotelId">
                 <UpdateHotel />
             </Route>
-            <Redirect to="/hotels/users" />
+            <Redirect to="/" />
         </Switch>
 
     );
@@ -57,6 +65,9 @@ const App = () => {
       routes = (
           <Switch>
               <Route path="/" exact>
+                  < WelcomePage />
+              </Route>
+              <Route path="/search" exact>
                   <SearchEngine />
               </Route>
               <Route path= "/allhotels" exact>

@@ -6,7 +6,7 @@ export const useAuth = () => {
     const [tokenExpirationDate, setTokenExpirationDate] = useState();
     const [userId, setUserId] = useState(false);
 
-    const login = useCallback((uid, token, expirationDate) => {
+    const login = useCallback((uid, token, email, expirationDate) => {
         setToken(token);
         const token_Expiration_Date = expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
         setTokenExpirationDate(token_Expiration_Date)
@@ -41,5 +41,5 @@ export const useAuth = () => {
         }
     }, [login]);
 
-    return { token, login, logout, userId };
+    return { token, login, logout, userId};
 };

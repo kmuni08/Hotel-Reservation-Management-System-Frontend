@@ -9,28 +9,35 @@ const NavLinks = props => {
 
     return (
         <ul className = "nav-links">
-            <li>
-                <NavLink to="/"> SEARCH FILTER</NavLink>
-            </li>
-            <li>
-                <NavLink to="/allhotels"> All HOTELS</NavLink>
-            </li>
+            {/*<li>*/}
+            {/*    <NavLink to="/"> WELCOME PAGE</NavLink>*/}
+            {/*</li>*/}
+            {(auth.isLoggedIn || !auth.isLoggedIn) && auth.userId !== "5fee440aa9c27f16a037e2ee" && (
+                <li>
+                    <NavLink to="/search"> SEARCH ENGINE</NavLink>
+                </li>
+            )}
+            {(auth.isLoggedIn || !auth.isLoggedIn) && auth.userId !== "5fee440aa9c27f16a037e2ee" && (
+                <li>
+                    <NavLink to="/allhotels"> All HOTELS</NavLink>
+                </li>
+            )}
             {!auth.isLoggedIn && (
                 <li>
                     <NavLink to="/auth"> AUTHENTICATE</NavLink>
                 </li>
             )}
-            {auth.isLoggedIn && (
+            {auth.isLoggedIn && auth.userId === "5fee440aa9c27f16a037e2ee" && (
                 <li>
                     <NavLink to={`/${auth.userId}/hotels`}> MY HOTELS</NavLink>
                 </li>
             )}
-            {auth.isLoggedIn && (
+            {auth.isLoggedIn && auth.userId === "5fee440aa9c27f16a037e2ee" && (
                 <li>
                     <NavLink to="/hotels/new"> ADD HOTELS</NavLink>
                 </li>
             )}
-            {auth.isLoggedIn && (
+            {auth.isLoggedIn && auth.userId === "5fee440aa9c27f16a037e2ee" && (
                 <li>
                     <NavLink to="/hotels/users"> SEE ALL USERS</NavLink>
                 </li>

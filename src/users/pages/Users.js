@@ -1,22 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 import UserList from '../components/UserList';
 import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import { useHttpClient } from '../../shared/hooks/http-hook';
+import {useParams} from "react-router-dom";
+import { AuthContext } from '../../shared/context/auth-context';
 
 const Users = () => {
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
     const [loadedUsers, setLoadedUsers] = useState();
 
+    const auth = useContext(AuthContext);
+    const creatorId = auth.userId;
+
     useEffect(() => {
         const fetchUsers = async () => {
             try {
                 const responseData = await sendRequest(
-                    'http://localhost:5000/api/users'
+                    `http://localhost:5000/api/reservations/${creatorId}`
                 );
 
-                setLoadedUsers(responseData.users);
+                setLoadedUsers(responseData.rightUser);
             } catch (err) {}
         };
         fetchUsers();

@@ -17,7 +17,7 @@ const UserItems = props => {
                         <h3> Email Address: {props.email} </h3>
                     </div>
                     <div className = "user-item__actions">
-                        <Button to={`/allhotels/${props.id}`} >REGISTRATION DETAILS</Button>
+                        <Button to={`/hotels/uid/${props.id}`} >REGISTRATION DETAILS</Button>
                     </div>
                 </Card>
             </li>
