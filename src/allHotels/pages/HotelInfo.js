@@ -17,6 +17,7 @@ const HotelInfo = () => {
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
     const [loadedHotel, setLoadedHotel] = useState();
     const hotelId = useParams().hotelId;
+    const customerId = auth.userId;
     const history = useHistory();
 
     const [formState, inputHandler, setFormData] = useForm({
@@ -99,9 +100,10 @@ const HotelInfo = () => {
         event.preventDefault();
         try {
             await sendRequest(
-                `http://localhost:5000/api/reservations`,
+                `http://localhost:5000/api/reservations/${customerId}`,
                 'POST',
                 JSON.stringify({
+                    userId: auth.userId,
                     name: formState.inputs.name.value,
                     address: formState.inputs.address.value,
                     description: formState.inputs.description.value,

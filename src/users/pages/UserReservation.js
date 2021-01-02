@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext }  from 'react';
+import React, { useEffect, useState }  from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useForm } from "../../shared/hooks/form-hook";
 import { useHttpClient } from "../../shared/hooks/http-hook";
@@ -7,10 +7,8 @@ import Card from "../../shared/components/UIElements/Card";
 import './UserReservationForm.css';
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
-import { AuthContext } from "../../shared/context/auth-context";
 
 const UserReservation = () => {
-    const auth = useContext(AuthContext);
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
     const [loadedUserReservation, setLoadedUserReservation] = useState();
     const userIdentification = useParams().userId;
@@ -83,14 +81,7 @@ const UserReservation = () => {
     const adminDoneHandler = async event => {
         event.preventDefault();
         try {
-            // await sendRequest(
-            //     null,
-            //     null,
-            //     null,
-            //     {
-            //         'Content-Type': 'application/json', Authorization: 'Bearer ' + auth.token
-            //     }
-            // );
+
             history.push('/hotels/users');
         } catch (err) {}
     };

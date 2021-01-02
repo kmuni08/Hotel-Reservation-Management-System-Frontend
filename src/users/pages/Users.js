@@ -21,7 +21,7 @@ const Users = () => {
                     `http://localhost:5000/api/reservations/${creatorId}`
                 );
 
-                setLoadedUsers(responseData.rightUser);
+                setLoadedUsers(responseData.finalUsers );
             } catch (err) {}
         };
         fetchUsers();

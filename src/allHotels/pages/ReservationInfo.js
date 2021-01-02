@@ -12,8 +12,9 @@ import { AuthContext } from "../../shared/context/auth-context";
 const HotelInfo = () => {
     const auth = useContext(AuthContext);
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
-    const [loadedReservation, setLoadedReservation] = useState();
+    const [loadedReservationInfo, setLoadedReservationInfo] = useState();
     const hotelId = useParams().hotelId;
+    const cust_id = auth.userId;
     const history = useHistory();
 
     const [setFormData] = useForm({
@@ -34,43 +35,43 @@ const HotelInfo = () => {
     useEffect(() => {
         const fetchReservation = async () => {
             try {
-                const responseData = await sendRequest(`http://localhost:5000/api/reservations/${hotelId}`);
-                setLoadedReservation(responseData.reservation);
+                const responseDataReserve = await sendRequest(`http://localhost:5000/api/reservations/${cust_id}/${hotelId}`);
+                setLoadedReservationInfo(responseDataReserve.reservationByHotel);
                 setFormData({
                     name: {
-                        value: responseData.reservation.name,
+                        value: responseDataReserve.reservationByHotel.name,
                         isValid: true
                     },
                     address: {
-                        value: responseData.reservation.address,
+                        value: responseDataReserve.reservationByHotel.address,
                         isValid: true
                     },
                     description: {
-                        value: responseData.reservation.description,
+                        value: responseDataReserve.reservationByHotel.description,
                         isValid: true
                     },
                     deluxe_user_pick: {
-                        value: responseData.reservation.deluxe_user_pick,
+                        value: responseDataReserve.reservationByHotel.deluxe_user_pick,
                         isValid: true
                     },
                     deluxePrice: {
-                        value: responseData.reservation.deluxePrice,
+                        value: responseDataReserve.reservationByHotel.deluxePrice,
                         isValid: true
                     },
                     standard_user_pick: {
-                        value: responseData.reservation.standard_user_pick,
+                        value: responseDataReserve.reservationByHotel.standard_user_pick,
                         isValid: true
                     },
                     standardPrice: {
-                        value: responseData.reservation.standardPrice,
+                        value: responseDataReserve.reservationByHotel.standardPrice,
                         isValid: true
                     },
                     suites_user_pick: {
-                        value: responseData.reservation.suites_user_pick,
+                        value: responseDataReserve.reservationByHotel.suites_user_pick,
                         isValid: true
                     },
                     suitesPrice: {
-                        value: responseData.reservation.suitesPrice,
+                        value: responseDataReserve.reservationByHotel.suitesPrice,
                         isValid: true
                     }
                 }, true);
@@ -81,11 +82,10 @@ const HotelInfo = () => {
     }, [sendRequest, hotelId, setFormData]);
 
     const hotelReservationCancelSubmitHandler = async event => {
-        console.log('want to cancel');
         event.preventDefault();
         try {
             await sendRequest(
-                `http://localhost:5000/api/reservations/cancel/${hotelId}`,
+                `http://localhost:5000/api/reservations/cancel/${cust_id}/${hotelId}`,
                 'DELETE',
                 null,
                 {
@@ -104,7 +104,8 @@ const HotelInfo = () => {
         );
     }
 
-    if(!loadedReservation && !error) {
+    console.log('Loaded Reservation', loadedReservationInfo)
+    if(!loadedReservationInfo && !error) {
         return (
             <div className="center">
                 <Card>
@@ -117,15 +118,15 @@ const HotelInfo = () => {
     return (
         <React.Fragment>
             <ErrorModal error = {error} onClear = {clearError} />
-            {!isLoading && loadedReservation && (
+            {!isLoading && loadedReservationInfo && (
                 <form className="hotel-form" onSubmit={hotelReservationCancelSubmitHandler}>
-                    <h4> Name of the Hotel: {loadedReservation.name} </h4>
-                    <h4> Address: {loadedReservation.address} </h4>
-                    <h4> {loadedReservation.description} </h4>
-                    <h4> Deluxe Rooms: {loadedReservation.deluxe_user_pick} rooms reserved, Price: ${loadedReservation.deluxePrice}</h4>
-                    <h4> Standard Rooms: {loadedReservation.standard_user_pick} rooms reserved, Price: ${loadedReservation.standardPrice}</h4>
-                    <h4> Suites Rooms: {loadedReservation.suites_user_pick} rooms reserved, Price: ${loadedReservation.suitesPrice}</h4>
-                    <h4> Payment in Total: $ {loadedReservation.totalPayment} </h4>
+                    <h4> Name of the Hotel: {loadedReservationInfo.name} </h4>
+                    <h4> Address: {loadedReservationInfo.address} </h4>
+                    <h4> {loadedReservationInfo.description} </h4>
+                    <h4> Deluxe Rooms: {loadedReservationInfo.deluxe_user_pick} rooms reserved, Price: ${loadedReservationInfo.deluxePrice}</h4>
+                    <h4> Standard Rooms: {loadedReservationInfo.standard_user_pick} rooms reserved, Price: ${loadedReservationInfo.standardPrice}</h4>
+                    <h4> Suites Rooms: {loadedReservationInfo.suites_user_pick} rooms reserved, Price: ${loadedReservationInfo.suitesPrice}</h4>
+                    <h4> Payment in Total: $ {loadedReservationInfo.totalPayment} </h4>
                     <Button type="submit">
                         CANCEL RESERVATION
                     </Button>
