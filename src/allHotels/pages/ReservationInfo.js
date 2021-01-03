@@ -35,7 +35,7 @@ const HotelInfo = () => {
     useEffect(() => {
         const fetchReservation = async () => {
             try {
-                const responseDataReserve = await sendRequest(`http://localhost:5000/api/reservations/${cust_id}/${hotelId}`);
+                const responseDataReserve = await sendRequest(process.env.REACT_APP_BACKEND_URL + `/reservations/${cust_id}/${hotelId}`);
                 setLoadedReservationInfo(responseDataReserve.reservationByHotel);
                 setFormData({
                     name: {
@@ -48,6 +48,30 @@ const HotelInfo = () => {
                     },
                     description: {
                         value: responseDataReserve.reservationByHotel.description,
+                        isValid: true
+                    },
+                    startDateMonth: {
+                        value: responseDataReserve.reservationByHotel.startDateMonth,
+                        isValid: true
+                    },
+                    startDateNum: {
+                        value: responseDataReserve.reservationByHotel.startDateNum,
+                        isValid: true
+                    },
+                    startDateYear: {
+                        value: responseDataReserve.reservationByHotel.startDateYear,
+                        isValid: true
+                    },
+                    endDateMonth: {
+                        value: responseDataReserve.reservationByHotel.endDateMonth,
+                        isValid: true
+                    },
+                    endDateNum: {
+                        value: responseDataReserve.reservationByHotel.endDateNum,
+                        isValid: true
+                    },
+                    endDateYear: {
+                        value: responseDataReserve.reservationByHotel.endDateYear,
                         isValid: true
                     },
                     deluxe_user_pick: {
@@ -79,13 +103,13 @@ const HotelInfo = () => {
             } catch (err) {}
         }
         fetchReservation();
-    }, [sendRequest, hotelId, setFormData]);
+    }, [sendRequest, hotelId, cust_id, setFormData]);
 
     const hotelReservationCancelSubmitHandler = async event => {
         event.preventDefault();
         try {
             await sendRequest(
-                `http://localhost:5000/api/reservations/cancel/${cust_id}/${hotelId}`,
+                process.env.REACT_APP_BACKEND_URL + `/reservations/cancel/${cust_id}/${hotelId}`,
                 'DELETE',
                 null,
                 {
@@ -123,6 +147,7 @@ const HotelInfo = () => {
                     <h4> Name of the Hotel: {loadedReservationInfo.name} </h4>
                     <h4> Address: {loadedReservationInfo.address} </h4>
                     <h4> {loadedReservationInfo.description} </h4>
+                    <h4> Reservation Dates:  {loadedReservationInfo.startDateMonth}/{loadedReservationInfo.startDateNum}/{loadedReservationInfo.startDateYear} - {loadedReservationInfo.endDateMonth}/{loadedReservationInfo.endDateNum}/{loadedReservationInfo.endDateYear}   </h4>
                     <h4> Deluxe Rooms: {loadedReservationInfo.deluxe_user_pick} rooms reserved, Price: ${loadedReservationInfo.deluxePrice}</h4>
                     <h4> Standard Rooms: {loadedReservationInfo.standard_user_pick} rooms reserved, Price: ${loadedReservationInfo.standardPrice}</h4>
                     <h4> Suites Rooms: {loadedReservationInfo.suites_user_pick} rooms reserved, Price: ${loadedReservationInfo.suitesPrice}</h4>

@@ -64,7 +64,7 @@ const UpdateHotel = () => {
     useEffect(() => {
         const fetchHotel = async () => {
             try {
-                const responseData = await sendRequest(`http://localhost:5000/api/hotels/${hotelId}`);
+                const responseData = await sendRequest(process.env.REACT_APP_BACKEND_URL + `/hotels/${hotelId}`);
                 setLoadedHotel(responseData.hotel);
                 setFormData({
                     image: {
@@ -117,7 +117,7 @@ const UpdateHotel = () => {
         event.preventDefault();
         try {
             await sendRequest(
-                `http://localhost:5000/api/hotels/${hotelId}`,
+                process.env.REACT_APP_BACKEND_URL + `/hotels/${hotelId}`,
                 'PATCH',
                 JSON.stringify({
                     image: formState.inputs.image.value,

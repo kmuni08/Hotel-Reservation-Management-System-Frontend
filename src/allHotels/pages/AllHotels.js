@@ -12,7 +12,7 @@ const AllHotels = () => {
         const fetchHotels = async () => {
             try {
                 const responseData = await sendRequest(
-                    'http://localhost:5000/api/hotels'
+                    process.env.REACT_APP_BACKEND_URL + '/hotels'
                 );
 
                 setLoadedHotels(responseData.hotels);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import {
     BrowserRouter as Router,
     Route,
@@ -6,18 +6,31 @@ import {
     Switch } from 'react-router-dom';
 import { AuthContext } from './shared/context/auth-context';
 import { useAuth } from './shared/hooks/auth-hook';
-import SearchEngine from './allHotels/pages/SearchEngine';
-import NewHotel from "./hotels/pages/NewHotel";
-import UserHotels from './hotels/pages/UserHotels';
+// import SearchEngine from './allHotels/pages/SearchEngine';
+// import NewHotel from "./hotels/pages/NewHotel";
+// import UserHotels from './hotels/pages/UserHotels';
+// import UpdateHotel from "./hotels/pages/UpdateHotel";
+// import Auth from "./users/pages/Auth";
+// import AllHotels from "./allHotels/pages/AllHotels";
+// import HotelInfo from "./allHotels/pages/HotelInfo";
+// import Users from "./users/pages/Users";
+// import ReservationInfo from './allHotels/pages/ReservationInfo';
+// import UserReservation from "./users/pages/UserReservation";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
-import UpdateHotel from "./hotels/pages/UpdateHotel";
-import Auth from "./users/pages/Auth";
-import AllHotels from "./allHotels/pages/AllHotels";
-import HotelInfo from "./allHotels/pages/HotelInfo";
-import Users from "./users/pages/Users";
-import ReservationInfo from './allHotels/pages/ReservationInfo';
 import WelcomePage from './welcomePage/welcome';
-import UserReservation from "./users/pages/UserReservation";
+import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
+
+const SearchEngine = React.lazy(() => import('./allHotels/pages/SearchEngine'));
+const NewHotel = React.lazy(() => import('./hotels/pages/NewHotel'));
+const UserHotels = React.lazy(() => import('./hotels/pages/UserHotels'));
+const UpdateHotel = React.lazy(() => import('./hotels/pages/UpdateHotel'));
+const Auth = React.lazy(() => import('./users/pages/Auth'));
+const AllHotels = React.lazy(() => import('./allHotels/pages/AllHotels'));
+const HotelInfo = React.lazy(() => import('./allHotels/pages/HotelInfo'));
+const Users = React.lazy(() => import('./users/pages/Users'));
+const ReservationInfo = React.lazy(() => import('./allHotels/pages/ReservationInfo'));
+const UserReservation = React.lazy(() => import('./users/pages/UserReservation'));
+// const WelcomePage = React.lazy(() => import('./welcomePage/welcome'));
 
 const App = () => {
     const { token, login, logout, userId} = useAuth();
@@ -79,7 +92,7 @@ const App = () => {
               <Route path="/auth">
                   <Auth />
               </Route>
-              <Redirect to = "/auth" />
+              <Redirect to = "/" />
           </Switch>
 
       );
@@ -94,7 +107,11 @@ const App = () => {
           <Router>
               <MainNavigation />
               <main>
-                  {routes}
+                  <Suspense fallback = {<div className="center">
+                      <LoadingSpinner />
+                  </div>}>
+                      {routes}
+                  </Suspense>
               </main>
           </Router>
       </AuthContext.Provider>

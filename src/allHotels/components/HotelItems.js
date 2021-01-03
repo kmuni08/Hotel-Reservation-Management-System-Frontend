@@ -47,14 +47,24 @@ const HotelItems = props => {
                         <h3> {props.address} </h3>
                         <h3> {props.description}</h3>
                     </div>
-                    <div className = "hotel-user-item__actions">
-                        <Button inverse onClick={openMapHandler}>VIEW ON MAP</Button>
-                        <Button to={`/allhotels/${props.id}`} >REGISTER</Button>
-                        {auth.userId && (
-                            <Button to={`/allhotels/reservation/${props.id}`} >View Registration</Button>
-                        )}
+                    {auth.userId && (
+                        <div className = "hotel-user-item-logged-in__actions">
+                            <Button inverse onClick={openMapHandler}>VIEW ON MAP</Button>
+                            <Button to={`/allhotels/${props.id}`} >REGISTER</Button>
+                            {auth.userId && (
+                                <Button to={`/allhotels/reservation/${props.id}`} >View Registration</Button>
+                            )}
 
-                    </div>
+                        </div>
+                    )}
+
+                    {!auth.userId && (
+                        <div className = "hotel-user-item__actions">
+                            <Button inverse onClick={openMapHandler}>VIEW ON MAP</Button>
+                            <Button to={`/allhotels/${props.id}`} >REGISTER</Button>
+
+                        </div>
+                    )}
                 </Card>
             </li>
         </React.Fragment>

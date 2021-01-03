@@ -26,6 +26,7 @@
 .hotel_item__actions {
     /*padding: 1rem;*/
     text-align: center;
+    margin-left: 4rem;
     /*border-top: 1px solid #ccc;*/
 }
 
@@ -61,7 +62,7 @@
 .hotel-item:active h2,
 .hotel-item:hover h3,
 .hotel-item:active h3 {
-    color: blue;
+    color: black;
 }
 
 .hotel-item__info h3 {

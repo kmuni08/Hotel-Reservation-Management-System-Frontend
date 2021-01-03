@@ -1,4 +1,4 @@
-import React, { useEffect, useState }  from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useForm } from "../../shared/hooks/form-hook";
 import { useHttpClient } from "../../shared/hooks/http-hook";
@@ -7,11 +7,16 @@ import Card from "../../shared/components/UIElements/Card";
 import './UserReservationForm.css';
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import {AuthContext} from "../../shared/context/auth-context";
 
 const UserReservation = () => {
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
     const [loadedUserReservation, setLoadedUserReservation] = useState();
     const userIdentification = useParams().userId;
+    const currentMonth = useParams().currentMonth;
+    const currentDate = useParams().currentDate;
+    const currentYear = useParams().currentYear;
+    const auth = useContext(AuthContext);
     const history = useHistory();
 
     const [setFormData] = useForm({
@@ -32,7 +37,7 @@ const UserReservation = () => {
     useEffect(() => {
         const fetchUserReservation = async () => {
             try {
-                const responseData = await sendRequest(`http://localhost:5000/api/reservations/uid/${userIdentification}`);
+                const responseData = await sendRequest(process.env.REACT_APP_BACKEND_URL + `/user-reservation-routes/uid/${userIdentification}/cm/${currentMonth}/cd/${currentDate}/cy/${currentYear}`);
                 setLoadedUserReservation(responseData.reservationForUser);
                 setFormData({
                     name: {
@@ -45,6 +50,30 @@ const UserReservation = () => {
                     },
                     description: {
                         value: responseData.reservationForUser.description,
+                        isValid: true
+                    },
+                    startDateMonth: {
+                        value: responseData.reservationForUser.startDateMonth,
+                        isValid: true
+                    },
+                    startDateNum: {
+                        value: responseData.reservationForUser.startDateNum,
+                        isValid: true
+                    },
+                    startDateYear: {
+                        value: responseData.reservationForUser.startDateYear,
+                        isValid: true
+                    },
+                    endDateMonth: {
+                        value: responseData.reservationForUser.endDateMonth,
+                        isValid: true
+                    },
+                    endDateNum: {
+                        value: responseData.reservationForUser.endDateNum,
+                        isValid: true
+                    },
+                    endDateYear: {
+                        value: responseData.reservationForUser.endDateYear,
                         isValid: true
                     },
                     deluxe_user_pick: {
@@ -112,6 +141,7 @@ const UserReservation = () => {
                     <h4> Name of the Hotel: {loadedUserReservation.name} </h4>
                     <h4> Address: {loadedUserReservation.address} </h4>
                     <h4> {loadedUserReservation.description} </h4>
+                    <h4> Reservation Dates:  {loadedUserReservation.startDateMonth}/{loadedUserReservation.startDateNum}/{loadedUserReservation.startDateYear} - {loadedUserReservation.endDateMonth}/{loadedUserReservation.endDateNum}/{loadedUserReservation.endDateYear}   </h4>
                     <h4> Deluxe Rooms: {loadedUserReservation.deluxe_user_pick} rooms reserved, Price: ${loadedUserReservation.deluxePrice}</h4>
                     <h4> Standard Rooms: {loadedUserReservation.standard_user_pick} rooms reserved, Price: ${loadedUserReservation.standardPrice}</h4>
                     <h4> Suites Rooms: {loadedUserReservation.suites_user_pick} rooms reserved, Price: ${loadedUserReservation.suitesPrice}</h4>

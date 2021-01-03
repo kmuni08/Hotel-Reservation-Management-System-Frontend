@@ -64,7 +64,7 @@ const NewHotel = () => {
         event.preventDefault();
         try {
             await sendRequest(
-                'http://localhost:5000/api/hotels',
+                process.env.REACT_APP_BACKEND_URL + '/hotels',
                 'POST',
                 JSON.stringify(
                 {

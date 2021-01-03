@@ -33,7 +33,7 @@ const HotelItem = props => {
         setShowConfirmModal(false);
         try {
             await sendRequest(
-                `http://localhost:5000/api/hotels/${props.id}`,
+                process.env.REACT_APP_BACKEND_URL + `/hotels/${props.id}`,
                 'DELETE',
                 null,
                 {

@@ -25,7 +25,7 @@ const SearchEngine = () => {
         const fetchHotels = async () => {
             try {
                 const responseData = await sendRequest(
-                    'http://localhost:5000/api/hotels'
+                    process.env.REACT_APP_BACKEND_URL + '/hotels'
                 );
                 const loadedHotels = responseData.hotels.filter(hotel =>
                       hotel.name.toString().toLowerCase().includes(searchHotelName.toString().toLowerCase())

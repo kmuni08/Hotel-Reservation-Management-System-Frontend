@@ -18,14 +18,14 @@ const Users = () => {
         const fetchUsers = async () => {
             try {
                 const responseData = await sendRequest(
-                    `http://localhost:5000/api/reservations/${creatorId}`
+                    process.env.REACT_APP_BACKEND_URL + `/reservations/${creatorId}`
                 );
 
                 setLoadedUsers(responseData.finalUsers );
             } catch (err) {}
         };
         fetchUsers();
-    }, [sendRequest]);
+    }, [sendRequest, creatorId]);
 
     return (
         <React.Fragment>

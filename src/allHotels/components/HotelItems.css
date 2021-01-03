@@ -25,8 +25,12 @@
 
 .hotel-user-item__actions {
     text-align: center;
-    /*margin-left: 10rem;*/
     /*border-top: 1px solid #ccc;*/
+}
+
+.hotel-user-item-logged-in__actions {
+    text-align: center;
+    margin-left: 11rem;
 }
 
 .hotel-user-item__modal-content {
@@ -61,7 +65,7 @@
 .hotel-user-item:active h2,
 .hotel-user-item:hover h3,
 .hotel-user-item:active h3 {
-    color: blue;
+    color: black;
 }
 
 .hotel-user-item__info h3 {
