@@ -12,12 +12,12 @@ const NavLinks = props => {
             {/*<li>*/}
             {/*    <NavLink to="/"> WELCOME PAGE</NavLink>*/}
             {/*</li>*/}
-            {(auth.isLoggedIn || !auth.isLoggedIn) && auth.userId !== "5fee440aa9c27f16a037e2ee" && (
+            {(auth.isLoggedIn || !auth.isLoggedIn) && auth.userId !== "5ff23a8f60bb5e0017b1a8d6" && (
                 <li>
                     <NavLink to="/search"> SEARCH ENGINE</NavLink>
                 </li>
             )}
-            {(auth.isLoggedIn || !auth.isLoggedIn) && auth.userId !== "5fee440aa9c27f16a037e2ee" && (
+            {(auth.isLoggedIn || !auth.isLoggedIn) && auth.userId !== "5ff23a8f60bb5e0017b1a8d6" && (
                 <li>
                     <NavLink to="/allhotels"> All HOTELS</NavLink>
                 </li>
@@ -27,17 +27,17 @@ const NavLinks = props => {
                     <NavLink to="/auth"> AUTHENTICATE</NavLink>
                 </li>
             )}
-            {auth.isLoggedIn && auth.userId === "5fee440aa9c27f16a037e2ee" && (
+            {auth.isLoggedIn && auth.userId === "5ff23a8f60bb5e0017b1a8d6" && (
                 <li>
                     <NavLink to={`/${auth.userId}/hotels`}> MY HOTELS</NavLink>
                 </li>
             )}
-            {auth.isLoggedIn && auth.userId === "5fee440aa9c27f16a037e2ee" && (
+            {auth.isLoggedIn && auth.userId === "5ff23a8f60bb5e0017b1a8d6" && (
                 <li>
                     <NavLink to="/hotels/new"> ADD HOTELS</NavLink>
                 </li>
             )}
-            {auth.isLoggedIn && auth.userId === "5fee440aa9c27f16a037e2ee" && (
+            {auth.isLoggedIn && auth.userId === "5ff23a8f60bb5e0017b1a8d6" && (
                 <li>
                     <NavLink to="/hotels/users"> SEE ALL USERS</NavLink>
                 </li>
