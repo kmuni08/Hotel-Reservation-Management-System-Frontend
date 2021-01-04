@@ -9,9 +9,6 @@ const NavLinks = props => {
 
     return (
         <ul className = "nav-links">
-            <li>
-                <NavLink to="/"> WELCOME PAGE</NavLink>
-            </li>
             {(auth.isLoggedIn || !auth.isLoggedIn) && (auth.userId !== "5ff23a8f60bb5e0017b1a8d6" && auth.userId !== "5ff283b6372d6700171b2cd9" && auth.userId !== "5ff283f4372d6700171b2cda" && auth.userId !== "5ff2840f372d6700171b2cdb") && (
                 <li>
                     <NavLink to="/search"> SEARCH ENGINE</NavLink>
