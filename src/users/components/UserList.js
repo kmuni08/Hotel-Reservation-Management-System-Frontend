@@ -23,6 +23,9 @@ const UserLists = props => {
                 id = {user.id}
                 name = {user.name}
                 email = {user.email}
+                hotelName = {user.hotelName}
+                hotelAddress = {user.hotelAddress}
+
             />
         ))}
     </ul>;
