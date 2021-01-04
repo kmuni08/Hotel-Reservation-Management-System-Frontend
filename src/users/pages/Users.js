@@ -13,15 +13,18 @@ const Users = () => {
 
     const auth = useContext(AuthContext);
     const creatorId = auth.userId;
+    const currentMonth = useParams().currentMonth;
+    const currentDate = useParams().currentDate;
+    const currentYear = useParams().currentYear;
 
     useEffect(() => {
         const fetchUsers = async () => {
             try {
                 const responseData = await sendRequest(
-                    process.env.REACT_APP_BACKEND_URL + `/reservations/${creatorId}`
+                    process.env.REACT_APP_BACKEND_URL + `/reservations/${creatorId}/cm/${currentMonth}/cd/${currentDate}/cy/${currentYear}`
                 );
-
                 setLoadedUsers(responseData.finalUsers );
+
             } catch (err) {}
         };
         fetchUsers();

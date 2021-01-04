@@ -25,6 +25,13 @@ const UserLists = props => {
                 email = {user.email}
                 hotelName = {user.hotelName}
                 hotelAddress = {user.hotelAddress}
+                hotelDescription = {user.hotelDescription}
+                // hotelStartDateMonth = {user.hotelStartDateMonth}
+                // hotelStartDateNum = {user.hotelStartDateNum}
+                // hotelStartDateYear = {user.hotelStartDateYear}
+                // hotelEndDateMonth = {user.hotelEndDateMonth}
+                // hotelEndDateNum = {user.hotelEndDateNum}
+                // hotelEndDateYear = {user.hotelEndDateYear}
 
             />
         ))}

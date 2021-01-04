@@ -12,12 +12,12 @@ const NavLinks = props => {
             {/*<li>*/}
             {/*    <NavLink to="/"> WELCOME PAGE</NavLink>*/}
             {/*</li>*/}
-            {(auth.isLoggedIn || !auth.isLoggedIn) && (auth.userId !== "5fee440aa9c27f16a037e2ee" && auth.userId !== "5fefa843b714d309fabb0140") && (
+            {(auth.isLoggedIn || !auth.isLoggedIn) && (auth.userId !== "5ff23a8f60bb5e0017b1a8d6" && auth.userId !== "5ff283b6372d6700171b2cd9" && auth.userId !== "5ff283f4372d6700171b2cda" && auth.userId !== "5ff2840f372d6700171b2cdb") && (
                 <li>
                     <NavLink to="/search"> SEARCH ENGINE</NavLink>
                 </li>
             )}
-            {(auth.isLoggedIn || !auth.isLoggedIn) && (auth.userId !== "5fee440aa9c27f16a037e2ee" && auth.userId !== "5fefa843b714d309fabb0140") && (
+            {(auth.isLoggedIn || !auth.isLoggedIn) && (auth.userId !== "5ff23a8f60bb5e0017b1a8d6" && auth.userId !== "5ff283b6372d6700171b2cd9" && auth.userId !== "5ff283f4372d6700171b2cda" && auth.userId !== "5ff2840f372d6700171b2cdb") && (
                 <li>
                     <NavLink to="/allhotels"> All HOTELS</NavLink>
                 </li>
@@ -27,17 +27,17 @@ const NavLinks = props => {
                     <NavLink to="/auth"> AUTHENTICATE</NavLink>
                 </li>
             )}
-            {auth.isLoggedIn && (auth.userId === "5fee440aa9c27f16a037e2ee" || auth.userId === "5fefa843b714d309fabb0140") && (
+            {auth.isLoggedIn && (auth.userId === "5ff23a8f60bb5e0017b1a8d6" || auth.userId === "5ff283b6372d6700171b2cd9" || auth.userId === "5ff283f4372d6700171b2cda" || auth.userId === "5ff2840f372d6700171b2cdb") && (
                 <li>
                     <NavLink to={`/${auth.userId}/hotels`}> MY HOTELS</NavLink>
                 </li>
             )}
-            {auth.isLoggedIn && (auth.userId === "5fee440aa9c27f16a037e2ee" || auth.userId === "5fefa843b714d309fabb0140") && (
+            {auth.isLoggedIn && (auth.userId === "5ff23a8f60bb5e0017b1a8d6" || auth.userId === "5ff283b6372d6700171b2cd9" || auth.userId === "5ff283f4372d6700171b2cda" || auth.userId === "5ff2840f372d6700171b2cdb") && (
                 <li>
                     <NavLink to="/hotels/new"> ADD HOTELS</NavLink>
                 </li>
             )}
-            {auth.isLoggedIn && (auth.userId === "5fee440aa9c27f16a037e2ee" || auth.userId === "5fefa843b714d309fabb0140") && (
+            {auth.isLoggedIn && (auth.userId === "5ff23a8f60bb5e0017b1a8d6" || auth.userId === "5ff283b6372d6700171b2cd9" || auth.userId === "5ff283f4372d6700171b2cda" || auth.userId === "5ff2840f372d6700171b2cdb") && (
                 <li>
                     <NavLink to="/hotels/users"> SEE ALL USERS</NavLink>
                 </li>
