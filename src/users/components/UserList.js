@@ -26,12 +26,19 @@ const UserLists = props => {
                 hotelName = {user.hotelName}
                 hotelAddress = {user.hotelAddress}
                 hotelDescription = {user.hotelDescription}
-                // hotelStartDateMonth = {user.hotelStartDateMonth}
-                // hotelStartDateNum = {user.hotelStartDateNum}
-                // hotelStartDateYear = {user.hotelStartDateYear}
-                // hotelEndDateMonth = {user.hotelEndDateMonth}
-                // hotelEndDateNum = {user.hotelEndDateNum}
-                // hotelEndDateYear = {user.hotelEndDateYear}
+                hotelStartDateMonth = {user.hotelStartDateMonth}
+                hotelStartDateNum = {user.hotelStartDateNum}
+                hotelStartDateYear = {user.hotelStartDateYear}
+                hotelEndDateMonth = {user.hotelEndDateMonth}
+                hotelEndDateNum = {user.hotelEndDateNum}
+                hotelEndDateYear = {user.hotelEndDateYear}
+                hotelDeluxeRoomsPicked= {user.hotelDeluxeRoomsPicked}
+                deluxePrice = {user.deluxePrice}
+                hotelStandardRoomsPicked= {user.hotelStandardRoomsPicked}
+                standardPrice = {user.standardPrice}
+                hotelSuitesRoomsPicked = {user.hotelSuitesRoomsPicked}
+                suitesPrice = {user.suitesPrice}
+                totalPaymentForReserved = {user.totalPaymentForReserved }
 
             />
         ))}

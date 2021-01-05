@@ -13,9 +13,10 @@ const Users = () => {
 
     const auth = useContext(AuthContext);
     const creatorId = auth.userId;
-    const currentMonth = useParams().currentMonth;
-    const currentDate = useParams().currentDate;
-    const currentYear = useParams().currentYear;
+    let date = new Date();
+    let currentMonth= (date.getMonth() + 1).toString();
+    let currentDate =  date.getUTCDate();
+    let currentYear=  date.getFullYear();
 
     useEffect(() => {
         const fetchUsers = async () => {

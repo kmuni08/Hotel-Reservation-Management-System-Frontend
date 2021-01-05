@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useRef }  from 'react';
+import React, { useEffect, useState, useContext}  from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import {VALIDATOR_REQUIRE, VALIDATOR_MIN} from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/form-hook";
@@ -45,7 +45,6 @@ const HotelInfo = () => {
     useEffect(() => {
         const fetchHotel = async () => {
             try {
-
                 const responseData = await sendRequest(process.env.REACT_APP_BACKEND_URL + `/hotels/${hotelId}`);
                 setLoadedHotel(responseData.hotel);
                 setFormData({
@@ -98,27 +97,13 @@ const HotelInfo = () => {
             alert('You cannot have all the rooms as 0');
             return;
         }
-        else if(formState.inputs.deluxe_user_pick.value === undefined || formState.inputs.suites_user_pick.value === undefined || formState.inputs.standard_user_pick.value === undefined) {
+        console.log(formState.inputs.deluxe_user_pick.value)
+        if(formState.inputs.deluxe_user_pick.value === undefined || formState.inputs.suites_user_pick.value === undefined || formState.inputs.standard_user_pick.value === undefined) {
             alert('All the text fields must have specified number of rooms');
             return;
         }
-
-        let date = new Date();
         let start_date = range.startDate;
         let end_date = range.endDate
-        console.log('submitted');
-        console.log('Current Date Month', (date.getMonth() + 1).toString());
-        console.log('Current Date Number', date.getUTCDate());
-        console.log('Current Date Year', date.getFullYear());
-        // console.log('Start Date Month', start_date_month);
-
-        console.log("Start Date Month", start_date._d.getMonth() + 1);
-        console.log("Start Date Num", start_date._d.getDate());
-        console.log("Start Date Year", start_date._d.getFullYear());
-        console.log("End Date Month", end_date._d.getMonth() + 1);
-        console.log("End Date Num", end_date._d.getDate());
-        console.log("End Date Year", end_date._d.getFullYear());
-
         event.preventDefault();
 
         try {
@@ -131,9 +116,6 @@ const HotelInfo = () => {
                     address: formState.inputs.address.value,
                     description: formState.inputs.description.value,
                     hotelId: hotelId,
-                    currentMonth: (date.getMonth() + 1).toString(),
-                    currentDate: date.getUTCDate(),
-                    currentYear: date.getFullYear(),
                     startDateMonth: start_date._d.getMonth() + 1,
                     startDateNum: start_date._d.getDate(),
                     startDateYear: start_date._d.getFullYear(),

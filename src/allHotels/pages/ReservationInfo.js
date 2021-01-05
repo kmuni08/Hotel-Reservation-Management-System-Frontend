@@ -14,6 +14,10 @@ const HotelInfo = () => {
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
     const [loadedReservationInfo, setLoadedReservationInfo] = useState();
     const hotelId = useParams().hotelId;
+    let date = new Date();
+    let currentMonth= (date.getMonth() + 1).toString();
+    let currentDate =  date.getUTCDate();
+    let currentYear=  date.getFullYear();
     const cust_id = auth.userId;
     const history = useHistory();
 
@@ -35,7 +39,7 @@ const HotelInfo = () => {
     useEffect(() => {
         const fetchReservation = async () => {
             try {
-                const responseDataReserve = await sendRequest(process.env.REACT_APP_BACKEND_URL + `/reservations/${cust_id}/${hotelId}`);
+                const responseDataReserve = await sendRequest(process.env.REACT_APP_BACKEND_URL + `/reservations/${cust_id}/${hotelId}/current-date/${currentMonth}/${currentDate}/${currentYear}`);
                 setLoadedReservationInfo(responseDataReserve.reservationByHotel);
                 setFormData({
                     name: {

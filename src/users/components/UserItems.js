@@ -15,7 +15,12 @@ const UserItems = props => {
                         <h3> Hotel Name: {props.hotelName} </h3>
                         <h3> Hotel Address: {props.hotelAddress} </h3>
                         <h3> Hotel Description: {props.hotelDescription} </h3>
-                        {/*<h3> Dates Reserved: {props.hotelStartDateMonth}/{props.hotelStartDateNum}/{props.hotelStartDateYear} - {props.hotelEndDateMonth}/{props.hotelEndDateNum}/{props.hotelEndDateYear}</h3>*/}
+                        <h3> Dates Reserved: {props.hotelStartDateMonth}/{props.hotelStartDateNum}/{props.hotelStartDateYear} - {props.hotelEndDateMonth}/{props.hotelEndDateNum}/{props.hotelEndDateYear}</h3>
+                        <h3> Deluxe Rooms Reserved: {props.hotelDeluxeRoomsPicked}, Price: ${props.deluxePrice}</h3>
+                        <h3> Standard Rooms Reserved: {props.hotelStandardRoomsPicked}, Price: ${props.standardPrice}</h3>
+                        <h3> Suites Rooms Reserved: {props.hotelSuitesRoomsPicked }, Price: ${props.suitesPrice}</h3>
+                        <h3> Total Payment: ${props.totalPaymentForReserved}</h3>
+
                     </div>
 
                 </Card>
