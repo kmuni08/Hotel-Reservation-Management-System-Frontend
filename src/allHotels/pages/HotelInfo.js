@@ -166,6 +166,15 @@ const HotelInfo = () => {
                     <h4> Name of the Hotel: {loadedHotel.name} </h4>
                     <h4> Address: {loadedHotel.address} </h4>
                     <h4> {loadedHotel.description} </h4>
+                    <DateRangePicker
+                        startDate={range.startDate} // momentPropTypes.momentObj or null,
+                        startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
+                        endDate={range.endDate} // momentPropTypes.momentObj or null,
+                        endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
+                        onDatesChange={({ startDate, endDate }) => $range({ startDate, endDate })} // PropTypes.func.isRequired,
+                        focusedInput={focus} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+                        onFocusChange={focusedInput => $focus(focusedInput)} // PropTypes.func.isRequired,
+                    />
                     <h4> Deluxe Rooms Available: {loadedHotel.deluxeNumOfRooms} rooms available, Price: ${loadedHotel.deluxePrice} per night</h4>
                     <Input
                         id = "deluxe_user_pick"
@@ -195,15 +204,6 @@ const HotelInfo = () => {
                         validators={[VALIDATOR_REQUIRE(), VALIDATOR_MIN(0)]}
                         errorText="Please enter a valid number of suite rooms."
                         onInput = {inputHandler}
-                    />
-                    <DateRangePicker
-                        startDate={range.startDate} // momentPropTypes.momentObj or null,
-                        startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
-                        endDate={range.endDate} // momentPropTypes.momentObj or null,
-                        endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
-                        onDatesChange={({ startDate, endDate }) => $range({ startDate, endDate })} // PropTypes.func.isRequired,
-                        focusedInput={focus} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-                        onFocusChange={focusedInput => $focus(focusedInput)} // PropTypes.func.isRequired,
                     />
                     <Button type="submit" disabled={!formState.isValid}>
                         REGISTER FOR HOTEL
