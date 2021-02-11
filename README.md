@@ -1,4 +1,4 @@
-# hotel-reservation-management-system
+# hotel-reservation-management-system-frontend
 
 Frontend
 
